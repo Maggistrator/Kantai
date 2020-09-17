@@ -17,6 +17,9 @@
 #define ASPECT_H_
 
 enum Aspect {
+    drawable,
+    positioned,
+
 	movable,
 	controllable,
 	collidable

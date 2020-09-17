@@ -36,11 +36,13 @@
 			<Add option="-lmingw32 -lSDLmain -lSDL -lSDL_draw -lSDL_ttf -lSDL_image -lSDL.dll" />
 			<Add directory="C:/SDL/SDL-1.2.15/lib/" />
 		</Linker>
+		<Unit filename="ec/components.cpp" />
+		<Unit filename="ec/spawner.cpp" />
 		<Unit filename="engine/aspect.h" />
 		<Unit filename="engine/engine.cpp" />
 		<Unit filename="engine/entity.h" />
+		<Unit filename="engine/png_load.h" />
 		<Unit filename="engine/subsystem.h" />
-		<Unit filename="engine/utils.h" />
 		<Unit filename="fsm/FiniteStateMachine.h" />
 		<Unit filename="fsm/game.cpp" />
 		<Unit filename="main.cpp" />

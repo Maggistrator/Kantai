@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1600367775 source:c:\sdl\labs\kantai\main.cpp
+1600382175 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -215,30 +215,34 @@
 	"engine/entity.h"
 	<SDL.h>
 
-1600338762 c:\sdl\labs\kantai\engine\entity.h
+1600374721 c:\sdl\labs\kantai\engine\entity.h
 	<list>
 	"subsystem.h"
 	"aspect.h"
 
-1600352901 c:\sdl\labs\kantai\engine\subsystem.h
+1600378453 c:\sdl\labs\kantai\engine\subsystem.h
 	<SDL.h>
 	"aspect.h"
+	"../fsm/FiniteStateMachine.h"
 
-1600338762 c:\sdl\labs\kantai\engine\aspect.h
+1600379299 c:\sdl\labs\kantai\engine\aspect.h
 
-1600354249 source:c:\sdl\labs\kantai\engine\engine.cpp
+1600374841 source:c:\sdl\labs\kantai\engine\engine.cpp
 	<list>
 	"entity.h"
 	<SDL.h>
 
-1600367168 source:c:\sdl\labs\kantai\fsm\game.cpp
+1600382207 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
+	<stdio.h>
+	<string>
+	"../ec/spawner.cpp"
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
-	"../engine/utils.h"
+	"../engine/png_load.h"
 
 1325810433 c:\sdl\sdl-1.2.15\include\sdl\\sdl_image.h
 	"SDL.h"
@@ -246,7 +250,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1600354249 c:\sdl\labs\kantai\engine\engine.cpp
+1600374841 c:\sdl\labs\kantai\engine\engine.cpp
 	<list>
 	"entity.h"
 	<SDL.h>
@@ -262,13 +266,49 @@
 	<list>
 	<iostream>
 
-1600368858 c:\sdl\labs\kantai\fsm\game.cpp
+1600382207 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<string>
+	"../ec/spawner.cpp"
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
+	"../engine/png_load.h"
+
+1600382925 c:\sdl\labs\kantai\engine\png_load.h
+	<string>
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+
+1600380328 source:c:\sdl\labs\kantai\ec\spawner.cpp
+	"components.cpp"
+
+1600381761 source:c:\sdl\labs\kantai\ec\components.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<string>
+	<iostream>
+	"../engine/aspect.h"
+	"../engine/subsystem.h"
+	"../engine/png_load.h"
+	"../engine/entity.h"
+
+1600380328 c:\sdl\labs\kantai\ec\spawner.cpp
+	"components.cpp"
+
+1600382904 c:\sdl\labs\kantai\ec\components.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<string>
+	<iostream>
+	"../engine/aspect.h"
+	"../engine/subsystem.h"
+	"../engine/png_load.h"
+	"../engine/entity.h"
 

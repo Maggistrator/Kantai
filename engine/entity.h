@@ -24,11 +24,11 @@ private:
 
 public:
 
-	virtual void update(Engine* e /*Game g*/)
+	virtual void update( StateBasedGame* g, GameState* state, Engine* e, int delta )
 	{
 		for(Subsystem* s: subsystems)
 		{
-			s->update(e);
+			s->update(g, state, e, this, delta); //StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta
 		}
 	}
 
@@ -49,8 +49,9 @@ public:
 		return false;
 	}
 
-	void addSubsystem(Subsystem* s)
+	void addSubsystem(StateBasedGame* g, GameState* state, Engine* e, Subsystem* s)
 	{
+	    s->init(g, state, e, this);//StateBasedGame* g, GameState* state, Engine* e, Entity* owner
 		subsystems.push_back(s);
 	}
 

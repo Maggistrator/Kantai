@@ -22,9 +22,9 @@ class Engine
 	std::list<Entity*> entities;
 
 public:
-	void update(/*Game*/)
+	void update(StateBasedGame* g, GameState* state, int delta )
 	{
-		for(Entity* e: entities) e->update(this);
+		for(Entity* e: entities) e->update(g, state, this, delta );//StateBasedGame* g, GameState* state, Engine* e, int delta
 	}
 
 	void render(SDL_Surface* s)

@@ -16,23 +16,22 @@
 
 #include <SDL.h>
 #include "aspect.h"
+#include "../fsm/FiniteStateMachine.h"
 
-//TODO:протестить в бою эту заглушку, выглядит
-//как костыль, но как иначе прервать цепочечное
-//включение?
 class Engine;
+class Entity;
 
 class Subsystem {
 
-//TODO: добавить аргументы Engine и Game по мере создания
-//		этих классов
 public:
-	virtual void update(Engine* e/*Game*/) = 0;
-	virtual void render(SDL_Surface* s) = 0;
+    // эти функции не объявлены истинно виртуальными, так как не все подсистемы обязаны определять их в полном обьеме
+    virtual void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){}
+	virtual void render(SDL_Surface* s){}
+	virtual void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){}
+	// любая подсистема имеет аспект
 	virtual Aspect getAspect() = 0;
 
-	virtual ~Subsystem();
+	virtual ~Subsystem(){}
 };
-
 
 #endif /* SUBSYSTEM_H_ */
