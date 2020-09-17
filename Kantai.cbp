@@ -30,7 +30,19 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="C:/SDL/SDL-1.2.15/include/SDL/" />
 		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDLmain -lSDL -lSDL_draw -lSDL_ttf -lSDL_image -lSDL.dll" />
+			<Add directory="C:/SDL/SDL-1.2.15/lib/" />
+		</Linker>
+		<Unit filename="engine/aspect.h" />
+		<Unit filename="engine/engine.cpp" />
+		<Unit filename="engine/entity.h" />
+		<Unit filename="engine/subsystem.h" />
+		<Unit filename="engine/utils.h" />
+		<Unit filename="fsm/game.cpp" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
