@@ -1,11 +1,13 @@
 # depslib dependency file v1.0
-1600356960 source:c:\sdl\labs\kantai\main.cpp
+1600367775 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
 	<SDL_image.h>
 	<iostream>
 	<stdlib.h>
+	"fsm/FiniteStateMachine.h"
+	"fsm/game.cpp"
 
 1325738639 c:\sdl\sdl-1.2.15\include\sdl\\sdl.h
 	"SDL_main.h"
@@ -229,11 +231,12 @@
 	"entity.h"
 	<SDL.h>
 
-1600356188 source:c:\sdl\labs\kantai\fsm\game.cpp
+1600367168 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
-	<stdio.h>
+	<iostream>
 	<SDL.h>
 	<SDL_image.h>
+	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
 	"../engine/utils.h"
 
@@ -248,9 +251,24 @@
 	"entity.h"
 	<SDL.h>
 
-1600356146 c:\sdl\labs\kantai\engine\utils.h
+1600367850 c:\sdl\labs\kantai\engine\utils.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<string>
+
+1600368410 c:\sdl\labs\kantai\fsm\finitestatemachine.h
+	<SDL.h>
+	<list>
+	<iostream>
+
+1600368858 c:\sdl\labs\kantai\fsm\game.cpp
+	<string>
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+	"FiniteStateMachine.h"
+	"../engine/engine.cpp"
 
