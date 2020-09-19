@@ -11,7 +11,7 @@
 #include "../ec/spawner.cpp"
 #include "FiniteStateMachine.h"
 #include "../engine/engine.cpp"
-#include "../engine/png_load.h"
+#include "../utils.h"
 //--------RESOURCES----------------//
 #define BACKGROUND_FILE_PATH "res/sea.png"
 

@@ -1,5 +1,5 @@
-#ifndef PNG_LOAD
-#define PNG_LOAD
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <string>
 #include <iostream>
@@ -32,4 +32,17 @@ using namespace std;
         return optimizedSurface;
     }
 
-#endif // PNG_LOAD
+    struct Clock
+    {
+        uint32_t last_tick_time = 0;
+        uint32_t delta = 0;
+
+        void tick()
+        {
+            uint32_t tick_time = SDL_GetTicks();
+            delta = tick_time - last_tick_time;
+            last_tick_time = tick_time;
+        }
+    };
+
+#endif // UTILS_H

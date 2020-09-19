@@ -8,6 +8,7 @@
 
 #include "fsm/FiniteStateMachine.h"
 #include "fsm/game.cpp"
+#include "utils.h"
 
 //PREPROCESSOR DEFINES--------
 #define SCREEN_WIDTH 800
@@ -16,19 +17,6 @@
 #define STATE_GAME 1
 
 using namespace std;
-
-struct Clock
-{
-    uint32_t last_tick_time = 0;
-    uint32_t delta = 0;
-
-    void tick()
-    {
-        uint32_t tick_time = SDL_GetTicks();
-        delta = tick_time - last_tick_time;
-        last_tick_time = tick_time;
-    }
-};
 
 int main(int argc, char* argv[])
 {

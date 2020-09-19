@@ -6,7 +6,7 @@
 
 #include "../engine/aspect.h"
 #include "../engine/subsystem.h"
-#include "../engine/png_load.h"
+#include "../utils.h"
 #include "../engine/entity.h"
 #include "../engine/engine.cpp"
 
@@ -72,6 +72,10 @@ class DrawableSubsystem : public Subsystem
 ///необычная подсистема, в отличие от остальных - она неуниверсальна, и служит только объекту игрока
 class ControllableSubsystem : public Subsystem
 {
+    //Timer------------------------------------
+    int cooldown = 500;
+    unsigned int lastTime = 0, currentTime;
+    //----------------------------------------
     SDL_Surface* textSurface;
     char* torpedosLabel;
     TTF_Font *font = NULL;
@@ -87,11 +91,13 @@ class ControllableSubsystem : public Subsystem
 
     void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
         SDL_Event event = *(state->pollEvent());
-        if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
+        if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN && (currentTime > lastTime + cooldown)){
             Entity* torpedo = spawnTorpedo(g, state, e);
             e->addEntity(torpedo);
             torpedosSpawned++;
+            lastTime = currentTime;
         }
+        currentTime = SDL_GetTicks();
 	}
 
 	void render(SDL_Surface* s){

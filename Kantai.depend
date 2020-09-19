@@ -310,7 +310,7 @@
 1600533012 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600537618 c:\sdl\labs\kantai\ec\components.cpp
+1600538567 c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -318,7 +318,15 @@
 	<SDL_ttf.h>
 	"../engine/aspect.h"
 	"../engine/subsystem.h"
-	"../engine/png_load.h"
+	"../utils.h"
 	"../engine/entity.h"
 	"../engine/engine.cpp"
+
+1600538120 c:\sdl\labs\kantai\utils.h
+	<string>
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
 
