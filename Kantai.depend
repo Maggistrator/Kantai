@@ -232,13 +232,16 @@
 	"entity.h"
 	<SDL.h>
 
-1600531494 source:c:\sdl\labs\kantai\fsm\game.cpp
+1600537004 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
+	<stdlib.h>
+	<time.h>
 	<string>
+	"../engine/aspect.h"
 	"../ec/spawner.cpp"
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
@@ -266,13 +269,16 @@
 	<list>
 	<iostream>
 
-1600531494 c:\sdl\labs\kantai\fsm\game.cpp
+1600537004 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
+	<stdlib.h>
+	<time.h>
 	<string>
+	"../engine/aspect.h"
 	"../ec/spawner.cpp"
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
@@ -286,28 +292,30 @@
 	<stdio.h>
 	<string>
 
-1600530056 source:c:\sdl\labs\kantai\ec\spawner.cpp
+1600533012 source:c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600532514 source:c:\sdl\labs\kantai\ec\components.cpp
+1600536970 source:c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
 	<iostream>
+	<SDL_ttf.h>
 	"../engine/aspect.h"
 	"../engine/subsystem.h"
 	"../engine/png_load.h"
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600532536 c:\sdl\labs\kantai\ec\spawner.cpp
+1600533012 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600532514 c:\sdl\labs\kantai\ec\components.cpp
+1600537618 c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
 	<iostream>
+	<SDL_ttf.h>
 	"../engine/aspect.h"
 	"../engine/subsystem.h"
 	"../engine/png_load.h"

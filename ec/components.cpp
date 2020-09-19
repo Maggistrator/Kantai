@@ -2,6 +2,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
+#include <SDL_ttf.h>
 
 #include "../engine/aspect.h"
 #include "../engine/subsystem.h"
@@ -67,18 +68,46 @@ class DrawableSubsystem : public Subsystem
 	}
 };
 
+
+///необычная подсистема, в отличие от остальных - она неуниверсальна, и служит только объекту игрока
 class ControllableSubsystem : public Subsystem
 {
+    SDL_Surface* textSurface;
+    char* torpedosLabel;
+    TTF_Font *font = NULL;
+    SDL_Color textColor = { 0, 0, 0 };
+
+    public:
+    int torpedosSpawned = 0;
+
+    void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
+        font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
+        torpedosLabel = new char[13];
+    }
+
     void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
         SDL_Event event = *(state->pollEvent());
         if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
             Entity* torpedo = spawnTorpedo(g, state, e);
             e->addEntity(torpedo);
+            torpedosSpawned++;
         }
+	}
+
+	void render(SDL_Surface* s){
+	    sprintf(torpedosLabel, "%s%d", "Torpedos: ", torpedosSpawned);
+        textSurface = TTF_RenderText_Solid( font, torpedosLabel, textColor );
+        SDL_BlitSurface( textSurface, nullptr, s, nullptr );
 	}
 
 	Aspect getAspect(){
         return controllable;
+	}
+
+	~ControllableSubsystem(){
+	    delete torpedosLabel;
+	    SDL_FreeSurface(textSurface);
+        TTF_CloseFont( font );
 	}
 };
 

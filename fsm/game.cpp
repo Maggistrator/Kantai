@@ -3,8 +3,11 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <stdio.h>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 #include <string>
+#include "../engine/aspect.h"
 #include "../ec/spawner.cpp"
 #include "FiniteStateMachine.h"
 #include "../engine/engine.cpp"
@@ -15,6 +18,7 @@
 
 class Game : public GameState
 {
+    int level = 1;
     SDL_Event event;
     SDL_Surface* display;
     SDL_Surface* background;
@@ -22,6 +26,7 @@ class Game : public GameState
 
     public:
     void init( SDL_Surface* display, StateBasedGame* g ) {
+        srand (time(NULL));
         this->display = display;
         background = loadOptimisedSurface( BACKGROUND_FILE_PATH, display );
         if( background == NULL )
@@ -31,9 +36,16 @@ class Game : public GameState
     }
 
     void update( StateBasedGame* g, int delta ) {
-        SDL_PollEvent(&event);
-        if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-        g->exit();
+        if(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) g->exit();
+            else {
+                Entity* player = entityManager.getAllPosessing(controllable).front();//игрок заведомо один, достаточно вызвать первый элемент списка полученных компонентов
+                ControllableSubsystem* ss = (ControllableSubsystem*)player->getSubsystem(controllable);
+                if(ss->torpedosSpawned % 10) //если на круг выпущено более десятка торпед - очистить уровень (и возможно, перейти на новый)
+                    clearLevel( player );
+            }
+        }
+
 
         entityManager.update(g, this, delta);//StateBasedGame* g, GameState* state, int delta
     }
@@ -42,6 +54,16 @@ class Game : public GameState
         SDL_BlitSurface( background, NULL, display, NULL );
         entityManager.render( display );
     }
+
+    void enemySpawner(){
+        //iSecret = rand() % 10 + 1;
+    }
+
+    void clearLevel( Entity* player ){
+        //for (Entity)
+    }
+
+    void nextLevel(){}
 
     SDL_Event* pollEvent( void ) {
         return &event;
