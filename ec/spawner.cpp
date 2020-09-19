@@ -44,5 +44,11 @@ static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e)
     moveMe->speed.y = -1;
     entity->addSubsystem( g, state, e, moveMe );
 
+    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
+    killMe->bounds.x = 0;
+    killMe->bounds.y = 0;
+    killMe->bounds.w = screen->w;
+    killMe->bounds.h = screen->h;
+
     return entity;
 }

@@ -104,3 +104,26 @@ class MovableSubsystem : public Subsystem
         return movable;
 	}
 };
+
+class SelfDestroyableSubsystem : public Subsystem
+{
+    PositionSubsystem* position;
+
+    public:
+    SDL_Rect bounds = {0,0,0,0};
+
+    void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
+        position = (PositionSubsystem*)owner->getSubsystem(positioned);
+    }
+
+    void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
+        if(position->x > bounds.x  ||
+           position->x < -bounds.w ||
+           position->y > bounds.y  ||
+           position->y < -bounds.h) e->killEntity( owner );
+	}
+
+	Aspect getAspect(){
+        return selfdestroyable;
+	}
+};
