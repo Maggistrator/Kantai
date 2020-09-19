@@ -17,6 +17,10 @@ class GameState {
 
     virtual void render( SDL_Surface* display ) = 0;
 
+    virtual SDL_Event* pollEvent( void ) = 0;
+
+    virtual SDL_Surface* getScreen() = 0;
+
     virtual void exit( void ) = 0;
 };
 

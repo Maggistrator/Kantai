@@ -1,3 +1,6 @@
+#ifndef ENGINE_CPP
+#define ENGINE_CPP
+
 /*
  * Entity-Component движок, концентрирующий Сущности,
  * концентрирующие подсистемы. Занимается коммуникацией
@@ -62,3 +65,4 @@ public:
 };
 
 
+#endif // ENGINE_CPP

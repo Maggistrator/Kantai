@@ -19,7 +19,6 @@
 enum Aspect {
     drawable,
     positioned,
-
 	movable,
 	controllable,
 	collidable

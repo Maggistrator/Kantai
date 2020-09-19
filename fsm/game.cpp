@@ -15,20 +15,22 @@
 
 class Game : public GameState
 {
+    SDL_Event event;
+    SDL_Surface* display;
     SDL_Surface* background;
     Engine entityManager;
-    SDL_Event event;
 
     public:
     void init( SDL_Surface* display, StateBasedGame* g ) {
+        this->display = display;
         background = loadOptimisedSurface( BACKGROUND_FILE_PATH, display );
         if( background == NULL )
             cerr << "Не удалось загрузить SDL_image! Причина: " << IMG_GetError() << endl;
-        Entity* player = spawnPlayer(background, g, this, &entityManager);
+        Entity* player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
     }
 
-    void update(  StateBasedGame* g, int delta ) {
+    void update( StateBasedGame* g, int delta ) {
         SDL_PollEvent(&event);
         if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
         g->exit();
@@ -41,6 +43,13 @@ class Game : public GameState
         entityManager.render( display );
     }
 
+    SDL_Event* pollEvent( void ) {
+        return &event;
+    }
+
+    SDL_Surface* getScreen() {
+        return display;
+    }
 
     void exit(){
         SDL_FreeSurface( background );

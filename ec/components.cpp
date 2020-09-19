@@ -7,8 +7,13 @@
 #include "../engine/subsystem.h"
 #include "../engine/png_load.h"
 #include "../engine/entity.h"
+#include "../engine/engine.cpp"
 
 using namespace std;
+
+//somehow neccesary prototype----------------------------------------------------//
+static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e );   //
+//-------------------------------------------------------------------------------//
 
 class PositionSubsystem : public Subsystem
 {
@@ -59,5 +64,43 @@ class DrawableSubsystem : public Subsystem
 	~DrawableSubsystem(){
         SDL_FreeSurface( image );
         delete bounds;
+	}
+};
+
+class ControllableSubsystem : public Subsystem
+{
+    void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
+        SDL_Event event = *(state->pollEvent());
+        if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
+            Entity* torpedo = spawnTorpedo(g, state, e);
+            e->addEntity(torpedo);
+        }
+	}
+
+	Aspect getAspect(){
+        return controllable;
+	}
+};
+
+class MovableSubsystem : public Subsystem
+{
+    PositionSubsystem* position;
+
+    public:
+    struct vector2d {
+        int x, y;
+    } speed = {0, 0};
+
+    void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
+        position = (PositionSubsystem*)owner->getSubsystem(positioned);
+    }
+
+    void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
+        position->x += speed.x;
+        position->y += speed.y;
+	}
+
+	Aspect getAspect(){
+        return movable;
 	}
 };
