@@ -41,11 +41,11 @@
 		<Unit filename="engine/aspect.h" />
 		<Unit filename="engine/engine.cpp" />
 		<Unit filename="engine/entity.h" />
-		<Unit filename="engine/png_load.h" />
 		<Unit filename="engine/subsystem.h" />
 		<Unit filename="fsm/FiniteStateMachine.h" />
 		<Unit filename="fsm/game.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="utils.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

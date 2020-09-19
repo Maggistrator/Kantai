@@ -64,7 +64,7 @@ static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e)
 
     PositionSubsystem* coords = new PositionSubsystem();
     coords->x = 0;
-    coords->y = BOAT_HEIGHT;
+    coords->y = BOAT_HEIGHT+70;
     entity->addSubsystem( g, state, e, coords ); //StateBasedGame* g, GameState* state, Engine* e, Subsystem* s
 
     DrawableSubsystem* renderer = new DrawableSubsystem( BOAT_IMAGE, screen );

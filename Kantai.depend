@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1600382175 source:c:\sdl\labs\kantai\main.cpp
+1600538148 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -8,6 +8,7 @@
 	<stdlib.h>
 	"fsm/FiniteStateMachine.h"
 	"fsm/game.cpp"
+	"utils.h"
 
 1325738639 c:\sdl\sdl-1.2.15\include\sdl\\sdl.h
 	"SDL_main.h"
@@ -232,7 +233,7 @@
 	"entity.h"
 	<SDL.h>
 
-1600537004 source:c:\sdl\labs\kantai\fsm\game.cpp
+1600538191 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -245,7 +246,7 @@
 	"../ec/spawner.cpp"
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
-	"../engine/png_load.h"
+	"../utils.h"
 
 1325810433 c:\sdl\sdl-1.2.15\include\sdl\\sdl_image.h
 	"SDL.h"
@@ -269,7 +270,7 @@
 	<list>
 	<iostream>
 
-1600537004 c:\sdl\labs\kantai\fsm\game.cpp
+1600538949 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -282,7 +283,7 @@
 	"../ec/spawner.cpp"
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
-	"../engine/png_load.h"
+	"../utils.h"
 
 1600382925 c:\sdl\labs\kantai\engine\png_load.h
 	<string>
@@ -292,10 +293,10 @@
 	<stdio.h>
 	<string>
 
-1600533012 source:c:\sdl\labs\kantai\ec\spawner.cpp
+1600538690 source:c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600536970 source:c:\sdl\labs\kantai\ec\components.cpp
+1600538567 source:c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -303,11 +304,11 @@
 	<SDL_ttf.h>
 	"../engine/aspect.h"
 	"../engine/subsystem.h"
-	"../engine/png_load.h"
+	"../utils.h"
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600533012 c:\sdl\labs\kantai\ec\spawner.cpp
+1600538690 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
 1600538567 c:\sdl\labs\kantai\ec\components.cpp

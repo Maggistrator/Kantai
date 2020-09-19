@@ -46,7 +46,7 @@ class Game : public GameState
             }
         }
 
-
+        spawnEnemies(g);
         entityManager.update(g, this, delta);//StateBasedGame* g, GameState* state, int delta
     }
 
@@ -55,8 +55,11 @@ class Game : public GameState
         entityManager.render( display );
     }
 
-    void enemySpawner(){
-        //iSecret = rand() % 10 + 1;
+    void spawnEnemies(StateBasedGame* g){
+        if(rand() % 1000 == 0) {
+            Entity* enemy = spawnBoat(g, this, &entityManager);
+            entityManager.addEntity(enemy);
+        }
     }
 
     void clearLevel( Entity* player ){
