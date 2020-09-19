@@ -15,7 +15,6 @@
 //--------RESOURCES----------------//
 #define BACKGROUND_FILE_PATH "res/sea.png"
 
-
 class Game : public GameState
 {
     int level = 1;
@@ -55,10 +54,14 @@ class Game : public GameState
         entityManager.render( display );
     }
 
+    int spawnCooldown = 500;
+    int spawnCounter = 0;
     void spawnEnemies(StateBasedGame* g){
-        if(rand() % 1000 == 0) {
+        if(spawnCounter > 0)spawnCounter--;
+        if(rand() % 10 == 0 && spawnCounter <= 0) {
             Entity* enemy = spawnBoat(g, this, &entityManager);
             entityManager.addEntity(enemy);
+            spawnCounter = spawnCooldown;
         }
     }
 

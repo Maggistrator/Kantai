@@ -75,11 +75,12 @@ class ControllableSubsystem : public Subsystem
     //Timer------------------------------------
     int cooldown = 500;
     unsigned int lastTime = 0, currentTime;
-    //----------------------------------------
+    //Torpedos count label---------------------
     SDL_Surface* textSurface;
     char* torpedosLabel;
     TTF_Font *font = NULL;
     SDL_Color textColor = { 0, 0, 0 };
+    //-----------------------------------------
 
     public:
     int torpedosSpawned = 0;

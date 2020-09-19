@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1600538148 source:c:\sdl\labs\kantai\main.cpp
+1600540935 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -233,7 +233,7 @@
 	"entity.h"
 	<SDL.h>
 
-1600538191 source:c:\sdl\labs\kantai\fsm\game.cpp
+1600539116 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -270,7 +270,7 @@
 	<list>
 	<iostream>
 
-1600538949 c:\sdl\labs\kantai\fsm\game.cpp
+1600541363 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -293,10 +293,10 @@
 	<stdio.h>
 	<string>
 
-1600538690 source:c:\sdl\labs\kantai\ec\spawner.cpp
+1600541097 source:c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600538567 source:c:\sdl\labs\kantai\ec\components.cpp
+1600540249 source:c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -308,10 +308,10 @@
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600538690 c:\sdl\labs\kantai\ec\spawner.cpp
+1600541373 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600538567 c:\sdl\labs\kantai\ec\components.cpp
+1600540249 c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -323,11 +323,12 @@
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600538120 c:\sdl\labs\kantai\utils.h
+1600541020 c:\sdl\labs\kantai\utils.h
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<string>
+	"SDL/SDL_ttf.h"
 

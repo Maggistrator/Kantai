@@ -45,7 +45,7 @@ static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e)
 
     MovableSubsystem* moveMe = new MovableSubsystem();
     moveMe->speed.x = 0;
-    moveMe->speed.y = -1;
+    moveMe->speed.y = -10;
     entity->addSubsystem( g, state, e, moveMe );
 
     SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
@@ -71,7 +71,7 @@ static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e)
     entity->addSubsystem( g, state, e, renderer );
 
     MovableSubsystem* moveMe = new MovableSubsystem();
-    moveMe->speed.x = 1;
+    moveMe->speed.x = 3;
     moveMe->speed.y = 0;
     entity->addSubsystem( g, state, e, moveMe );
 

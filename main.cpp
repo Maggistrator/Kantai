@@ -13,6 +13,8 @@
 //PREPROCESSOR DEFINES--------
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define SCREEN_FPS 60
+#define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
 #define STATE_GAME 1
 
@@ -46,11 +48,23 @@ int main(int argc, char* argv[])
     } else atexit (IMG_Quit);
 
     SDL_SetAlpha(screen, SDL_SRCALPHA , SDL_ALPHA_OPAQUE);
-    //--------------------------------MAIN GAME CYCLE-------------------------------//
-    int running = 1;
-    Clock timer;
 
-//    SDL_Flip(screen);
+    //--------------------------------MAIN GAME CYCLE-------------------------------//
+    int fps = 0;
+    uint32_t frame = 0;
+    int running = 1;
+    DeltaCounter dc;
+    Timer fps_counter;
+
+    //FPS label -------------
+    SDL_Surface* textSurface;
+    char* fpsLabel;
+    TTF_Font *font = NULL;
+    SDL_Rect place4fps = {0,50,200,50};
+    SDL_Color textColor = { 0, 0, 0 };
+    font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
+    fpsLabel = new char[13];
+
     StateBasedGame game( &running );
 
     //Game state
@@ -59,11 +73,21 @@ int main(int argc, char* argv[])
     game.switchState( STATE_GAME );
 
     while ( running ){
-        SDL_FillRect(screen, NULL, 0x000000);
-        timer.tick();
+        fps_counter.start();
+        dc.tick();
+        frame++;
+        fps = frame % FRAMES_PER_SECOND;
 
-        game.update( timer.delta );
+        SDL_FillRect(screen, NULL, 0x000000);
+        game.update( dc.delta );
         game.render( screen );
+
+        sprintf(fpsLabel, "%s%d", "FPS: ", fps);
+        textSurface = TTF_RenderText_Solid( font, fpsLabel, textColor );
+        SDL_BlitSurface( textSurface, nullptr, screen, &place4fps );
+        //Sleep the remaining frame time
+        if(fps_counter.get_ticks() < 1000 / FRAMES_PER_SECOND )
+            SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps_counter.get_ticks() );
 
         SDL_Flip(screen);
     }
