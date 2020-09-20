@@ -73,7 +73,7 @@ public:
 		if(s != nullptr) subsystems.remove(s);
 	}
 
-	virtual ~Entity()
+	~Entity()
 	{
 		for(Subsystem* s: subsystems)
 		{

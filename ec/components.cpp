@@ -30,12 +30,12 @@ class PositionSubsystem : public Subsystem
 class DrawableSubsystem : public Subsystem
 {
 
+    public:
     string source;
     SDL_Rect* bounds;
     SDL_Surface* image = nullptr;
     PositionSubsystem* position;
 
-    public:
     DrawableSubsystem( string path, SDL_Surface* screen ) : source( path ) {
         image = loadOptimisedSurface( path, screen );
     }
@@ -153,10 +153,12 @@ class SelfDestroyableSubsystem : public Subsystem
     }
 
     void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
-        if(position->x > bounds.x  ||
-           position->x < -bounds.w ||
-           position->y > bounds.y  ||
-           position->y < -bounds.h) e->killEntity( owner );
+        if(position->x < bounds.x  ||
+           position->x > bounds.w  ||
+           position->y < bounds.y  ||
+           position->y > bounds.h) {
+               e->killEntity( owner );
+           }
 	}
 
 	Aspect getAspect(){

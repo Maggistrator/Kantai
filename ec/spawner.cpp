@@ -50,9 +50,10 @@ static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e)
 
     SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
     killMe->bounds.x = 0;
-    killMe->bounds.y = 0;
+    killMe->bounds.y = 120;
     killMe->bounds.w = screen->w;
     killMe->bounds.h = screen->h;
+    entity->addSubsystem( g, state, e, killMe );
 
     return entity;
 }
@@ -80,6 +81,7 @@ static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e)
     killMe->bounds.y = 0;
     killMe->bounds.w = screen->w;
     killMe->bounds.h = screen->h;
+    entity->addSubsystem( g, state, e, killMe );
 
     return entity;
 }

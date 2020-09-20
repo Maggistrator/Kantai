@@ -49,6 +49,9 @@ int main(int argc, char* argv[])
 
     SDL_SetAlpha(screen, SDL_SRCALPHA , SDL_ALPHA_OPAQUE);
 
+    freopen("CON", "w", stdout); // redirects stdout
+    freopen("CON", "w", stderr); // redirects stderr
+
     //--------------------------------MAIN GAME CYCLE-------------------------------//
     int fps = 0;
     uint32_t frame = 0;

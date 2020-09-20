@@ -19,14 +19,25 @@
 #include <list>
 #include "entity.h"
 #include <SDL.h>
-
+#include <iostream>
+using namespace std;
 class Engine
 {
 	std::list<Entity*> entities;
+	std::list<Entity*> removable;
 
 public:
 	void update(StateBasedGame* g, GameState* state, int delta )
 	{
+
+	    for(int i = 0; i < removable.size(); i++){
+            Entity* toDelete = removable.front();
+            entities.remove(toDelete);
+            removable.remove(toDelete);
+            cout << "removable size:"<<removable.size()<<endl;
+            cout << "deleting:"<<toDelete<<endl;
+            delete toDelete;
+	    }
 		for(Entity* e: entities) e->update(g, state, this, delta );//StateBasedGame* g, GameState* state, Engine* e, int delta
 	}
 
@@ -53,8 +64,7 @@ public:
 
 	void killEntity(Entity* e)
 	{
-		entities.remove(e);
-		delete e;
+	    removable.push_back(e);
 	}
 
 	~Engine()
