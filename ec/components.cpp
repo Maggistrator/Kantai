@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <SDL_ttf.h>
+#include <SDL_draw.h>
 
 #include "../engine/aspect.h"
 #include "../engine/subsystem.h"
@@ -29,7 +30,6 @@ class PositionSubsystem : public Subsystem
 
 class DrawableSubsystem : public Subsystem
 {
-
     public:
     string source;
     SDL_Rect* bounds;
@@ -164,4 +164,51 @@ class SelfDestroyableSubsystem : public Subsystem
 	Aspect getAspect(){
         return selfdestroyable;
 	}
+};
+class CollidableSubsystem : public Subsystem
+{
+    PositionSubsystem* position;
+
+    public:
+    SDL_Rect hitbox = {0,0,0,0};
+
+    void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
+        position = (PositionSubsystem*)owner->getSubsystem(positioned);
+    }
+
+    void render(SDL_Surface* screen){
+        Draw_Rect(screen, hitbox.x, hitbox.y, hitbox.w, hitbox.h, SDL_MapRGB(screen -> format, 0, 0, 0));
+    }
+
+    void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
+        //update coords--------------------------------------
+        hitbox.x = position->x;
+        hitbox.y = position->y;
+
+        //check collision------------------------------------
+        list<Entity*> others = e->getAllPosessing(collidable);
+
+               // cout<<"size of collidables: "<<others.size()<<endl;
+        for(Entity* other_entity: others){
+            if(other_entity != owner) {
+                CollidableSubsystem* othersCollider = (CollidableSubsystem*)other_entity->getSubsystem(collidable);
+                    cout<<"other entity is:"<<other_entity<<endl;
+                    cout<<"check collision is "<<checkCollision(hitbox, othersCollider->hitbox)<<endl;
+                if(checkCollision(hitbox, othersCollider->hitbox)){
+                    e->killEntity( owner );
+                    e->killEntity( other_entity );
+                }
+            }
+        }
+    }
+
+	Aspect getAspect(){
+        return collidable;
+	}
+
+    private:
+    bool checkCollision( SDL_Rect a, SDL_Rect b )
+    {
+        return ( b.x+b.w > a.x && b.x < a.x+a.w && b.y+b.w > a.y && b.y < a.y + a.h );
+    }
 };

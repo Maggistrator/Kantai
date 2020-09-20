@@ -216,7 +216,7 @@
 	"engine/entity.h"
 	<SDL.h>
 
-1600626435 c:\sdl\labs\kantai\engine\entity.h
+1600632932 c:\sdl\labs\kantai\engine\entity.h
 	<list>
 	"subsystem.h"
 	"aspect.h"
@@ -295,30 +295,32 @@
 	<stdio.h>
 	<string>
 
-1600627460 source:c:\sdl\labs\kantai\ec\spawner.cpp
+1600631510 source:c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600627476 source:c:\sdl\labs\kantai\ec\components.cpp
+1600633659 source:c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
 	<iostream>
 	<SDL_ttf.h>
+	<SDL_draw.h>
 	"../engine/aspect.h"
 	"../engine/subsystem.h"
 	"../utils.h"
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600628424 c:\sdl\labs\kantai\ec\spawner.cpp
+1600631510 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1600627476 c:\sdl\labs\kantai\ec\components.cpp
+1600641124 c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
 	<iostream>
 	<SDL_ttf.h>
+	<SDL_draw.h>
 	"../engine/aspect.h"
 	"../engine/subsystem.h"
 	"../utils.h"
@@ -333,4 +335,9 @@
 	<stdio.h>
 	<string>
 	"SDL/SDL_ttf.h"
+
+1029325208 c:\sdl\sdl-1.2.15\include\sdl\\sdl_draw.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
 

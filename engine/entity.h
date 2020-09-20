@@ -45,6 +45,7 @@ public:
 		for(Subsystem* s: subsystems)
 		{
 			if(a == s->getAspect()) return true;
+			//cout<<"searching for aspect "<<a<<", found aspect "<<s->getAspect()<<" in subsystem " << s <<endl;
 		}
 		return false;
 	}

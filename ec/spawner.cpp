@@ -11,6 +11,9 @@
 #define BOAT_WIDTH 150
 #define BOAT_HEIGHT 50
 
+#define TORPEDO_WIDTH 33
+#define TORPEDO_HEIGHT 100
+
 static Entity* spawnPlayer( StateBasedGame* g, GameState* state, Engine* e)
 {
     Entity* entity = new Entity();
@@ -37,23 +40,23 @@ static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e)
 
     PositionSubsystem* coords = new PositionSubsystem();
     coords->x = screen->w/2;
-    coords->y = screen->h;
+    coords->y = screen->h-TORPEDO_HEIGHT;
     entity->addSubsystem( g, state, e, coords ); //StateBasedGame* g, GameState* state, Engine* e, Subsystem* s
 
     DrawableSubsystem* renderer = new DrawableSubsystem( TORPEDO_IMAGE, screen );
     entity->addSubsystem( g, state, e, renderer );
 
     MovableSubsystem* moveMe = new MovableSubsystem();
-    moveMe->speed.x = 0;
-    moveMe->speed.y = -10;
+    moveMe->speed = {0, -10};
     entity->addSubsystem( g, state, e, moveMe );
 
     SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
-    killMe->bounds.x = 0;
-    killMe->bounds.y = 120;
-    killMe->bounds.w = screen->w;
-    killMe->bounds.h = screen->h;
+    killMe->bounds = {0, 120, screen->w, screen->h};
     entity->addSubsystem( g, state, e, killMe );
+
+    CollidableSubsystem* collider = new CollidableSubsystem();
+    collider->hitbox = {0, 0, TORPEDO_WIDTH, TORPEDO_HEIGHT};
+    entity->addSubsystem( g, state, e, collider);
 
     return entity;
 }
@@ -72,16 +75,16 @@ static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e)
     entity->addSubsystem( g, state, e, renderer );
 
     MovableSubsystem* moveMe = new MovableSubsystem();
-    moveMe->speed.x = 3;
-    moveMe->speed.y = 0;
+    moveMe->speed = {3, 0};
     entity->addSubsystem( g, state, e, moveMe );
 
     SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
-    killMe->bounds.x = 0;
-    killMe->bounds.y = 0;
-    killMe->bounds.w = screen->w;
-    killMe->bounds.h = screen->h;
+    killMe->bounds={0,0,screen->w-BOAT_WIDTH/2, screen->h};
     entity->addSubsystem( g, state, e, killMe );
+
+    CollidableSubsystem* collider = new CollidableSubsystem();
+    collider->hitbox = {0, 0, BOAT_WIDTH, BOAT_HEIGHT};
+    entity->addSubsystem( g, state, e, collider);
 
     return entity;
 }
