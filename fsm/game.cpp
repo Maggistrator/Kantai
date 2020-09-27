@@ -28,13 +28,14 @@ class Game : public GameState
     TTF_Font *font = NULL;
     SDL_Color textColor = { 255, 255, 255 };
     SDL_Rect textPlaceholder = { 0, 50, 200, 50 };
+
+    public:
     //----игровые поля---------//
     int level = 1;
     int points = 0;
     int spawnCooldown = 120;
     int spawnCounter = 0;
 
-    public:
     void init( SDL_Surface* display, StateBasedGame* g ) {
         srand (time(NULL));
         this->display = display;
@@ -80,7 +81,19 @@ class Game : public GameState
     void spawnEnemies(StateBasedGame* g){
         if(spawnCounter > 0)spawnCounter--;
         if(rand() % 2 == 0 && spawnCounter <= 0) {
-            Entity* enemy = spawnBoat(g, this, &entityManager, &points);
+            Entity* enemy;
+            switch (rand() % 3 + 1)
+            {
+                case 1:
+                enemy = spawnBoat(g, this, &entityManager, &points, level);
+                break;
+                case 2:
+                enemy = spawnCargo(g, this, &entityManager, &points, level);
+                break;
+                case 3:
+                enemy = spawnBattleship(g, this, &entityManager, &points, level);
+                break;
+            }
             entityManager.addEntity(enemy);
             spawnCounter = spawnCooldown;
         }

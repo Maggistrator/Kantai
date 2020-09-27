@@ -11,7 +11,7 @@
 #include "../engine/entity.h"
 #include "../engine/engine.cpp"
 
-//#define DEBUG 1
+//#define DEBUG
 
 using namespace std;
 
@@ -172,9 +172,13 @@ class CollidableSubsystem : public Subsystem
     PositionSubsystem* position;
 
     public:
+    int x_offset = 0;
+    int y_offset = 0;
     SDL_Rect hitbox = {0,0,0,0};
 
     void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
+        x_offset = hitbox.x;
+        y_offset = hitbox.y;
         position = (PositionSubsystem*)owner->getSubsystem(positioned);
     }
 
@@ -186,8 +190,8 @@ class CollidableSubsystem : public Subsystem
 
     void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
         //update coords--------------------------------------
-        hitbox.x = position->x;
-        hitbox.y = position->y;
+        hitbox.x = position->x+x_offset;
+        hitbox.y = position->y+y_offset;
 
         //check collision------------------------------------
         list<Entity*> others = e->getAllPosessing(collidable);
