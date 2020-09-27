@@ -18,6 +18,8 @@
 
 #define STATE_GAME 1
 
+//#define DEBUG 1
+
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -59,6 +61,7 @@ int main(int argc, char* argv[])
     DeltaCounter dc;
     Timer fps_counter;
 
+    #ifdef DEBUG
     //FPS label -------------
     SDL_Surface* textSurface;
     char* fpsLabel;
@@ -67,6 +70,7 @@ int main(int argc, char* argv[])
     SDL_Color textColor = { 0, 0, 0 };
     font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
     fpsLabel = new char[13];
+    #endif // DEBUG
 
     StateBasedGame game( &running );
 
@@ -85,9 +89,12 @@ int main(int argc, char* argv[])
         game.update( dc.delta );
         game.render( screen );
 
+        #ifdef DEBUG
         sprintf(fpsLabel, "%s%d", "FPS: ", fps);
         textSurface = TTF_RenderText_Solid( font, fpsLabel, textColor );
         SDL_BlitSurface( textSurface, nullptr, screen, &place4fps );
+        #endif // DEBUG
+
         //Sleep the remaining frame time
         if(fps_counter.get_ticks() < 1000 / FRAMES_PER_SECOND )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps_counter.get_ticks() );

@@ -14,6 +14,8 @@
 #define TORPEDO_WIDTH 33
 #define TORPEDO_HEIGHT 100
 
+#define BOATS_COST 1
+
 static Entity* spawnPlayer( StateBasedGame* g, GameState* state, Engine* e)
 {
     Entity* entity = new Entity();
@@ -61,14 +63,14 @@ static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e)
     return entity;
 }
 
-static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e)
+static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter )
 {
     Entity* entity = new Entity();
     SDL_Surface* screen = state->getScreen();
 
     PositionSubsystem* coords = new PositionSubsystem();
     coords->x = 0;
-    coords->y = BOAT_HEIGHT+70;
+    coords->y = BOAT_HEIGHT+90;
     entity->addSubsystem( g, state, e, coords ); //StateBasedGame* g, GameState* state, Engine* e, Subsystem* s
 
     DrawableSubsystem* renderer = new DrawableSubsystem( BOAT_IMAGE, screen );
@@ -85,6 +87,9 @@ static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e)
     CollidableSubsystem* collider = new CollidableSubsystem();
     collider->hitbox = {0, 0, BOAT_WIDTH, BOAT_HEIGHT};
     entity->addSubsystem( g, state, e, collider);
+
+    PointsSubsystem* valuable = new PointsSubsystem(BOATS_COST, pointsCounter);
+    entity->addSubsystem( g, state, e, valuable);
 
     return entity;
 }

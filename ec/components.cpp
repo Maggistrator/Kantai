@@ -11,6 +11,8 @@
 #include "../engine/entity.h"
 #include "../engine/engine.cpp"
 
+//#define DEBUG 1
+
 using namespace std;
 
 //somehow neccesary prototype----------------------------------------------------//
@@ -176,9 +178,11 @@ class CollidableSubsystem : public Subsystem
         position = (PositionSubsystem*)owner->getSubsystem(positioned);
     }
 
+    #ifdef DEBUG
     void render(SDL_Surface* screen){
         Draw_Rect(screen, hitbox.x, hitbox.y, hitbox.w, hitbox.h, SDL_MapRGB(screen -> format, 0, 0, 0));
     }
+    #endif // DEBUG
 
     void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
         //update coords--------------------------------------
@@ -188,12 +192,13 @@ class CollidableSubsystem : public Subsystem
         //check collision------------------------------------
         list<Entity*> others = e->getAllPosessing(collidable);
 
-               // cout<<"size of collidables: "<<others.size()<<endl;
         for(Entity* other_entity: others){
             if(other_entity != owner) {
                 CollidableSubsystem* othersCollider = (CollidableSubsystem*)other_entity->getSubsystem(collidable);
+                #ifdef DEBUG
                     cout<<"other entity is:"<<other_entity<<endl;
                     cout<<"check collision is "<<checkCollision(hitbox, othersCollider->hitbox)<<endl;
+                #endif // DEBUG
                 if(checkCollision(hitbox, othersCollider->hitbox)){
                     e->killEntity( owner );
                     e->killEntity( other_entity );
@@ -209,6 +214,28 @@ class CollidableSubsystem : public Subsystem
     private:
     bool checkCollision( SDL_Rect a, SDL_Rect b )
     {
-        return ( b.x+b.w > a.x && b.x < a.x+a.w && b.y+b.w > a.y && b.y < a.y + a.h );
+        bool c1 = a.x < (b.x + b.w); // самая левая точка одного прямоугольника не может быть правее самой правой точки другого
+        bool c2 = (a.x + a.w) > b.x; // верно и обратное
+        bool c3 = a.y < (b.y + b.h); // верхняя точка одного прямоугольника не может быть ниже нижней точки другого
+        bool c4 = (a.y + a.h) > b.y; // и, соответственно, в обратном порядке это тоже так
+        return ( c1 && c2 && c3 && c4 );
     }
+};
+
+
+class PointsSubsystem : public Subsystem
+{
+    int cost = 0;
+    int* pPoints = nullptr;
+
+    public:
+    PointsSubsystem(int c, int* points) : cost(c), pPoints(points) {}
+
+    ~PointsSubsystem(){
+        *pPoints += cost;
+    }
+
+	Aspect getAspect(){
+        return valuable;
+	}
 };

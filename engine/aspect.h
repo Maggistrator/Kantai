@@ -22,7 +22,8 @@ enum Aspect {
 	movable,
 	controllable,
 	selfdestroyable,
-	collidable
+	collidable,
+	valuable
 	/*etc*/
 };
 
