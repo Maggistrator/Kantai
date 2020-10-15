@@ -11,7 +11,7 @@
 #include "../engine/entity.h"
 #include "../engine/engine.cpp"
 
-//#define DEBUG
+#define DEBUG
 
 using namespace std;
 
@@ -143,30 +143,28 @@ class MovableSubsystem : public Subsystem
 	}
 };
 
-class SelfDestroyableSubsystem : public Subsystem
+class PointsSubsystem : public Subsystem
 {
-    PositionSubsystem* position;
-
     public:
-    SDL_Rect bounds = {0,0,0,0};
+    int cost = 0;
+    int* pPoints = nullptr;
+    int* pKills = nullptr;
+    bool countMeIn = false;
 
-    void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
-        position = (PositionSubsystem*)owner->getSubsystem(positioned);
+    PointsSubsystem(int c, int* kills, int* points) : cost(c), pPoints(points), pKills(kills) {}
+
+    ~PointsSubsystem(){
+        if(countMeIn) {
+            *pPoints += cost;
+            *pKills++;
+        }
     }
 
-    void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
-        if(position->x < bounds.x  ||
-           position->x > bounds.w  ||
-           position->y < bounds.y  ||
-           position->y > bounds.h) {
-               e->killEntity( owner );
-           }
-	}
-
 	Aspect getAspect(){
-        return selfdestroyable;
+        return valuable;
 	}
 };
+
 class CollidableSubsystem : public Subsystem
 {
     PositionSubsystem* position;
@@ -199,11 +197,17 @@ class CollidableSubsystem : public Subsystem
         for(Entity* other_entity: others){
             if(other_entity != owner) {
                 CollidableSubsystem* othersCollider = (CollidableSubsystem*)other_entity->getSubsystem(collidable);
-                #ifdef DEBUG
-                    cout<<"other entity is:"<<other_entity<<endl;
-                    cout<<"check collision is "<<checkCollision(hitbox, othersCollider->hitbox)<<endl;
-                #endif // DEBUG
+
                 if(checkCollision(hitbox, othersCollider->hitbox)){
+                    PointsSubsystem* counter1, *counter2 = nullptr;
+                    counter1 = (PointsSubsystem*)owner->getSubsystem(valuable);
+                    counter2 = (PointsSubsystem*)other_entity->getSubsystem(valuable);
+                    #ifdef DEBUG
+                    cout << "PointsSubsystem1 is " << (counter1 ? " present" : " abscent") << ", val " << counter1 << endl;
+                    cout << "PointsSubsystem2 is " << (counter2 ? " present" : " abscent") << ", val " << counter2 << endl;
+                    #endif // DEBUG
+                    if(counter1 != nullptr) counter1->countMeIn = true;
+                    if(counter2 != nullptr) counter2->countMeIn = true;
                     e->killEntity( owner );
                     e->killEntity( other_entity );
                 }
@@ -226,20 +230,27 @@ class CollidableSubsystem : public Subsystem
     }
 };
 
-
-class PointsSubsystem : public Subsystem
+class SelfDestroyableSubsystem : public Subsystem
 {
-    int cost = 0;
-    int* pPoints = nullptr;
+    PositionSubsystem* position = nullptr;
 
     public:
-    PointsSubsystem(int c, int* points) : cost(c), pPoints(points) {}
+    SDL_Rect bounds = {0,0,0,0};
 
-    ~PointsSubsystem(){
-        *pPoints += cost;
+    void init(StateBasedGame* g, GameState* state, Engine* e, Entity* owner){
+        position = (PositionSubsystem*)owner->getSubsystem(positioned);
     }
 
+    void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
+        if(position->x < bounds.x  ||
+           position->x > bounds.w  ||
+           position->y < bounds.y  ||
+           position->y > bounds.h) {
+               e->killEntity( owner );
+           }
+	}
+
 	Aspect getAspect(){
-        return valuable;
+        return selfdestroyable;
 	}
 };

@@ -78,7 +78,7 @@ static Entity* spawnTorpedo( StateBasedGame* g, GameState* state, Engine* e)
     return entity;
 }
 
-static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter, int level)
+static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter, int* killsCounter, int level)
 {
     Entity* entity = new Entity();
     SDL_Surface* screen = state->getScreen();
@@ -91,25 +91,25 @@ static Entity* spawnBoat( StateBasedGame* g, GameState* state, Engine* e, int* p
     DrawableSubsystem* renderer = new DrawableSubsystem( BOAT_IMAGE, screen );
     entity->addSubsystem( g, state, e, renderer );
 
-    MovableSubsystem* moveMe = new MovableSubsystem();
-    moveMe->speed = {BASIC_BOAT_SPEED + (level * BASIC_BOAT_SPEED/100), 0};//с каждым уровнем, скорость лодки растет на 20%
-    entity->addSubsystem( g, state, e, moveMe );
+    PointsSubsystem* valuable = new PointsSubsystem(BOAT_COST, killsCounter, pointsCounter);
+    entity->addSubsystem( g, state, e, valuable);
 
-    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
-    killMe->bounds={0,0,screen->w-BOAT_WIDTH/2, screen->h};
-    entity->addSubsystem( g, state, e, killMe );
+    MovableSubsystem* moveMe = new MovableSubsystem();
+    moveMe->speed = {BASIC_BOAT_SPEED + (level * BASIC_BOAT_SPEED/10), 0};//с каждым уровнем, скорость лодки растет на 20%
+    entity->addSubsystem( g, state, e, moveMe );
 
     CollidableSubsystem* collider = new CollidableSubsystem();
     collider->hitbox = {0, BOAT_HEIGHT/2, BOAT_WIDTH, BOAT_HEIGHT/2};
     entity->addSubsystem( g, state, e, collider);
 
-    PointsSubsystem* valuable = new PointsSubsystem(BOAT_COST, pointsCounter);
-    entity->addSubsystem( g, state, e, valuable);
+    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
+    killMe->bounds={0,0,screen->w-BOAT_WIDTH/2, screen->h};
+    entity->addSubsystem( g, state, e, killMe );
 
     return entity;
 }
 
-static Entity* spawnCargo( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter, int level)
+static Entity* spawnCargo( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter,  int* killsCounter, int level)
 {
     Entity* entity = new Entity();
     SDL_Surface* screen = state->getScreen();
@@ -122,51 +122,51 @@ static Entity* spawnCargo( StateBasedGame* g, GameState* state, Engine* e, int* 
     DrawableSubsystem* renderer = new DrawableSubsystem( CARGO_IMAGE, screen );
     entity->addSubsystem( g, state, e, renderer );
 
-    MovableSubsystem* moveMe = new MovableSubsystem();
-    moveMe->speed = {BASIC_CARGO_SPEED + (level*BASIC_CARGO_SPEED/100), 0};//скорость торговорго корабля растет на 30%
-    entity->addSubsystem( g, state, e, moveMe );
+    PointsSubsystem* valuable = new PointsSubsystem(CARGO_COST, killsCounter, pointsCounter);
+    entity->addSubsystem( g, state, e, valuable);
 
-    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
-    killMe->bounds={0,0,screen->w-CARGO_WIDTH/2, screen->h};
-    entity->addSubsystem( g, state, e, killMe );
+    MovableSubsystem* moveMe = new MovableSubsystem();
+    moveMe->speed = {BASIC_CARGO_SPEED + (level*BASIC_CARGO_SPEED/10), 0};//скорость торговорго корабля растет на 30%
+    entity->addSubsystem( g, state, e, moveMe );
 
     CollidableSubsystem* collider = new CollidableSubsystem();
     collider->hitbox = {0, 0, CARGO_WIDTH, CARGO_HEIGHT};
     entity->addSubsystem( g, state, e, collider);
 
-    PointsSubsystem* valuable = new PointsSubsystem(CARGO_COST, pointsCounter);
-    entity->addSubsystem( g, state, e, valuable);
+    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
+    killMe->bounds={0,0,screen->w-CARGO_WIDTH/2, screen->h};
+    entity->addSubsystem( g, state, e, killMe );
 
     return entity;
 }
 
-static Entity* spawnBattleship( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter, int level)
+static Entity* spawnBattleship( StateBasedGame* g, GameState* state, Engine* e, int* pointsCounter, int* killsCounter, int level)
 {
     Entity* entity = new Entity();
     SDL_Surface* screen = state->getScreen();
 
     PositionSubsystem* coords = new PositionSubsystem();
     coords->x = 0;
-    coords->y = BATTLESHIP_HEIGHT+50;
+    coords->y = BATTLESHIP_HEIGHT+45;
     entity->addSubsystem( g, state, e, coords ); //StateBasedGame* g, GameState* state, Engine* e, Subsystem* s
 
     DrawableSubsystem* renderer = new DrawableSubsystem( BATTLESHIP_IMAGE, screen );
     entity->addSubsystem( g, state, e, renderer );
 
-    MovableSubsystem* moveMe = new MovableSubsystem();
-    moveMe->speed = {BASIC_BATTLESHIP_SPEED + (level*BASIC_BATTLESHIP_SPEED/100), 0};//скорость боевого корабля растет на 50% за уровень
-    entity->addSubsystem( g, state, e, moveMe );
+    PointsSubsystem* counter = new PointsSubsystem(BATTLESHIP_COST, killsCounter, pointsCounter);
+    entity->addSubsystem( g, state, e, counter);
 
-    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
-    killMe->bounds={0,0,screen->w-BATTLESHIP_WIDTH/2, screen->h};
-    entity->addSubsystem( g, state, e, killMe );
+    MovableSubsystem* moveMe = new MovableSubsystem();
+    moveMe->speed = {BASIC_BATTLESHIP_SPEED + (level*BASIC_BATTLESHIP_SPEED/10), 0};//скорость боевого корабля растет на 50% за уровень
+    entity->addSubsystem( g, state, e, moveMe );
 
     CollidableSubsystem* collider = new CollidableSubsystem();
     collider->hitbox = {0, BATTLESHIP_HEIGHT/2, BATTLESHIP_WIDTH, BATTLESHIP_HEIGHT/2};
     entity->addSubsystem( g, state, e, collider);
 
-    PointsSubsystem* valuable = new PointsSubsystem(BATTLESHIP_COST, pointsCounter);
-    entity->addSubsystem( g, state, e, valuable);
+    SelfDestroyableSubsystem* killMe = new SelfDestroyableSubsystem();
+    killMe->bounds={0,0,screen->w-BATTLESHIP_WIDTH/2, screen->h};
+    entity->addSubsystem( g, state, e, killMe );
 
     return entity;
 }

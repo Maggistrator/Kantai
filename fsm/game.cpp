@@ -15,6 +15,8 @@
 //--------RESOURCES----------------//
 #define BACKGROUND_FILE_PATH "res/sea.png"
 
+using namespace std;
+
 class Game : public GameState
 {
     //-----служебные пол€-------//
@@ -22,6 +24,7 @@ class Game : public GameState
     SDL_Surface* display;
     SDL_Surface* background;
     Engine entityManager;
+    friend class Statistics;
     //метка очков--------------//
     SDL_Surface* textSurface;
     char* pointsLabel;
@@ -29,12 +32,16 @@ class Game : public GameState
     SDL_Color textColor = { 255, 255, 255 };
     SDL_Rect textPlaceholder = { 0, 50, 200, 50 };
 
-    public:
     //----игровые пол€---------//
-    int level = 1;
-    int points = 0;
-    int spawnCooldown = 120;
-    int spawnCounter = 0;
+    struct levelData {
+        int level = 1;                  // текущий уровень
+        int points = 0;                 // очки
+        int torpedosSpawned = 0;        // количество выпущенных торпед
+        int killed = 0;                 // количество убитых противников
+    } ld;
+    int spawnCooldown = 120;        // задержка спауна противников
+    int spawnCounter = 0;           // таймер спауна противников
+
 
     void init( SDL_Surface* display, StateBasedGame* g ) {
         srand (time(NULL));
@@ -57,13 +64,23 @@ class Game : public GameState
                 //подсчет выпущеных торпед через подсистему управлени€//
                 Entity* player = entityManager.getAllPosessing(controllable).front();//игрок заведомо один, достаточно вызвать первый элемент списка полученных компонентов
                 ControllableSubsystem* ss = (ControllableSubsystem*)player->getSubsystem(controllable);
-                if(ss->torpedosSpawned % 10) //если на круг выпущено более дес€тка торпед - очистить уровень (и возможно, перейти на новый)
-                    clearLevel( player );
+                //если на круг выпущено более дес€тка торпед - очистить уровень (и возможно, перейти на новый)
+                ld.torpedosSpawned = ss->torpedosSpawned;
             }
         }
 
         spawnEnemies(g);
         entityManager.update(g, this, delta);//StateBasedGame* g, GameState* state, int delta
+
+        // если выпущено более 10 торпед, дл€ завершени€ игры остаетс€ только дождатьс€, когда взорветс€ последн€€ торпеда
+        if((ld.torpedosSpawned % 10) == 0 && ld.torpedosSpawned > 0) {
+            list<Entity*> enemiesNTorpedos = entityManager.getAllPosessing(selfdestroyable);    // получаем все сущности, которые могут взрыватьс€
+            list<Entity*> enemies = entityManager.getAllPosessing(valuable);                    // получаем список противников
+            if(enemiesNTorpedos.size() == enemies.size()) {                                     // сравниваем список противников со списком всех сущностей - ждем, пока не останутс€ “ќЋ№ ќ противники
+                clearLevel();
+                nextLevel( g );
+            }
+        }
     }
 
     void render( SDL_Surface* display ) {
@@ -72,12 +89,12 @@ class Game : public GameState
         //отрисовка сущностей
         entityManager.render( display );
         //отрисовка метки очков
-        sprintf(pointsLabel, "%s%d", "Points: ", points);
+        sprintf(pointsLabel, "%s%d", "Points: ", ld.points);
         textSurface = TTF_RenderText_Solid( font, pointsLabel, textColor );
         SDL_BlitSurface( textSurface, nullptr, display, &textPlaceholder );
     }
 
-
+    //ћетод генерации противников. зависит от уровн€.
     void spawnEnemies(StateBasedGame* g){
         if(spawnCounter > 0)spawnCounter--;
         if(rand() % 2 == 0 && spawnCounter <= 0) {
@@ -85,13 +102,13 @@ class Game : public GameState
             switch (rand() % 3 + 1)
             {
                 case 1:
-                enemy = spawnBoat(g, this, &entityManager, &points, level);
+                enemy = spawnBoat(g, this, &entityManager, &ld.points, &ld.killed, ld.level);
                 break;
                 case 2:
-                enemy = spawnCargo(g, this, &entityManager, &points, level);
+                enemy = spawnCargo(g, this, &entityManager, &ld.points, &ld.killed, ld.level);
                 break;
                 case 3:
-                enemy = spawnBattleship(g, this, &entityManager, &points, level);
+                enemy = spawnBattleship(g, this, &entityManager, &ld.points, &ld.killed, ld.level);
                 break;
             }
             entityManager.addEntity(enemy);
@@ -99,11 +116,14 @@ class Game : public GameState
         }
     }
 
-    void clearLevel( Entity* player ){
-        //for (Entity)
+    void clearLevel( ){
+        list<Entity*> extraEntities = entityManager.getAllPosessing(selfdestroyable);
+        for(Entity* e: extraEntities) entityManager.killEntity(e);
     }
 
-    void nextLevel(){}
+    void nextLevel( StateBasedGame* g ){
+        //g.registerState
+    }
 
     SDL_Event* pollEvent( void ) {
         return &event;

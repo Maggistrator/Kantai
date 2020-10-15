@@ -43,6 +43,7 @@
 		<Unit filename="engine/entity.h" />
 		<Unit filename="engine/subsystem.h" />
 		<Unit filename="fsm/FiniteStateMachine.h" />
+		<Unit filename="fsm/finish_game.cpp" />
 		<Unit filename="fsm/game.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="utils.h" />
