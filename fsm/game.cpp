@@ -62,7 +62,8 @@ class Game : public GameState
 
     void update( StateBasedGame* g, int delta ) {
         if(SDL_PollEvent(&event)) {
-            if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) g->exit();
+            if(event.type == SDL_QUIT) g->exit();
+            else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) g->switchState(states::main_menu);
         }
 
         spawnEnemies(g);

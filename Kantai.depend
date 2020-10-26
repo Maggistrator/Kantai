@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1603050721 source:c:\sdl\labs\kantai\main.cpp
+1603739667 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -8,6 +8,7 @@
 	<stdlib.h>
 	"fsm/FiniteStateMachine.h"
 	"fsm/game.cpp"
+	"fsm/main_menu.cpp"
 	"utils.h"
 	"fsm/states.h"
 
@@ -235,7 +236,7 @@
 	<SDL.h>
 	<iostream>
 
-1603129679 source:c:\sdl\labs\kantai\fsm\game.cpp
+1603733970 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -270,12 +271,12 @@
 	<stdio.h>
 	<string>
 
-1603049734 c:\sdl\labs\kantai\fsm\finitestatemachine.h
+1603736008 c:\sdl\labs\kantai\fsm\finitestatemachine.h
 	<SDL.h>
 	<list>
 	<iostream>
 
-1603129679 c:\sdl\labs\kantai\fsm\game.cpp
+1603733970 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -300,7 +301,12 @@
 	<stdio.h>
 	<string>
 
+1600382925 D
+
 1602777404 source:c:\sdl\labs\kantai\ec\spawner.cpp
+	"components.cpp"
+
+1601224697 88c59258e13d0331217171ae0b5fc93e8988c
 	"components.cpp"
 
 1603129344 source:c:\sdl\labs\kantai\ec\components.cpp
@@ -332,14 +338,14 @@
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600716392 c:\sdl\labs\kantai\utils.h
+1603724279 c:\sdl\labs\kantai\utils.h
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<string>
-	"SDL/SDL_ttf.h"
+	<SDL_ttf.h>
 
 1029325208 c:\sdl\sdl-1.2.15\include\sdl\\sdl_draw.h
 	"SDL.h"
@@ -359,4 +365,24 @@
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
+
+1603743564 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/button.h"
+
+1603743845 c:\sdl\labs\kantai\ui\button.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<SDL_draw.h>
+	"../fsm/FiniteStateMachine.h"
+
+1603743564 c:\sdl\labs\kantai\fsm\main_menu.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/button.h"
 

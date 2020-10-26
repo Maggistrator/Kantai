@@ -8,6 +8,7 @@
 
 #include "fsm/FiniteStateMachine.h"
 #include "fsm/game.cpp"
+#include "fsm/main_menu.cpp"
 #include "utils.h"
 #include "fsm/states.h"
 
@@ -76,8 +77,10 @@ int main(int argc, char* argv[])
 
     //Game state
     Game* gamestate = new Game();
+    MainMenu* mainMenuState = new MainMenu();
+    game.registerState( states::main_menu, screen, mainMenuState );
     game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
-    game.switchState( states::game );
+    game.switchState( states::main_menu );
 
     while ( running ){
         fps_counter.start();
