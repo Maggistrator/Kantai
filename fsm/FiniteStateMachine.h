@@ -32,7 +32,7 @@ struct GameStateIndexer {
     };
 
     int* exitPrivilegie = nullptr;
-    list<GameStateIndexer*> states;
+    list<GameStateIndexer*> states_list;
     GameStateIndexer* currentState = nullptr;
 
 public:
@@ -44,13 +44,29 @@ public:
         GameStateIndexer* temp = new GameStateIndexer();
         temp->id = id;
         temp->state = state;
-        states.push_back( temp );
+        states_list.push_back( temp );
         temp->state->init( display, this );
+    }
+
+    void unregisterState( int id ) {
+        for (GameStateIndexer* indexer: states_list) {
+            if(indexer->id == id) {
+                if(indexer != currentState) {
+                    indexer->state->exit();
+                    states_list.remove(indexer);
+                    return;
+                } else {
+                    cerr << "Нельзя удалить текущее состояние!" << endl;
+                    return;
+                }
+            }
+        }
+        cerr << "Искомое состояние не найдено!" << endl;
     }
 
     void switchState( int id )
     {
-        for(GameStateIndexer* in : states) {
+        for(GameStateIndexer* in : states_list) {
             if(in->id == id){
                 currentState = in;
                 return;
@@ -58,7 +74,7 @@ public:
         }
         cerr << "Переключение невозможно, состояния с индексом " << id << " не существует" << endl;
         cerr << "Доступны состояния: ";
-        for (GameStateIndexer* in : states) cerr << in->id << " ";
+        for (GameStateIndexer* in : states_list) cerr << in->id << " ";
         cerr << endl;
     }
 
@@ -73,7 +89,7 @@ public:
     }
 
     void exit() {
-        for (GameStateIndexer* in : states) in->state->exit();
+        for (GameStateIndexer* in : states_list) in->state->exit();
         exitPrivilegie = 0;
     }
 };

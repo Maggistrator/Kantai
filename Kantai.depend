@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1601219908 source:c:\sdl\labs\kantai\main.cpp
+1603050721 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -9,6 +9,7 @@
 	"fsm/FiniteStateMachine.h"
 	"fsm/game.cpp"
 	"utils.h"
+	"fsm/states.h"
 
 1325738639 c:\sdl\sdl-1.2.15\include\sdl\\sdl.h
 	"SDL_main.h"
@@ -216,7 +217,7 @@
 	"engine/entity.h"
 	<SDL.h>
 
-1602776027 c:\sdl\labs\kantai\engine\entity.h
+1603215199 c:\sdl\labs\kantai\engine\entity.h
 	<list>
 	"subsystem.h"
 	"aspect.h"
@@ -234,7 +235,7 @@
 	<SDL.h>
 	<iostream>
 
-1602774217 source:c:\sdl\labs\kantai\fsm\game.cpp
+1603129679 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -248,6 +249,8 @@
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
 	"../utils.h"
+	"finish_game.cpp"
+	"states.h"
 
 1325810433 c:\sdl\sdl-1.2.15\include\sdl\\sdl_image.h
 	"SDL.h"
@@ -267,12 +270,12 @@
 	<stdio.h>
 	<string>
 
-1600530138 c:\sdl\labs\kantai\fsm\finitestatemachine.h
+1603049734 c:\sdl\labs\kantai\fsm\finitestatemachine.h
 	<SDL.h>
 	<list>
 	<iostream>
 
-1602774217 c:\sdl\labs\kantai\fsm\game.cpp
+1603129679 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -286,6 +289,8 @@
 	"FiniteStateMachine.h"
 	"../engine/engine.cpp"
 	"../utils.h"
+	"finish_game.cpp"
+	"states.h"
 
 1600382925 c:\sdl\labs\kantai\engine\png_load.h
 	<string>
@@ -298,7 +303,7 @@
 1602777404 source:c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1602777130 source:c:\sdl\labs\kantai\ec\components.cpp
+1603129344 source:c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -314,7 +319,7 @@
 1602777404 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1602777877 c:\sdl\labs\kantai\ec\components.cpp
+1603129344 c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -341,6 +346,17 @@
 	"begin_code.h"
 	"close_code.h"
 
-1602774605 source:c:\sdl\labs\kantai\fsm\finish_game.cpp
-	"game.cpp"
+1603129756 source:c:\sdl\labs\kantai\fsm\finish_game.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+
+1603048899 c:\sdl\labs\kantai\fsm\states.h
+
+1603129756 c:\sdl\labs\kantai\fsm\finish_game.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
 

@@ -58,7 +58,7 @@ public:
 
 	//TODO: придумать оптимизацию, чтобы последовательный вызов
 	//hasSubsystem() и getSubsystem() не итерировались по списку
-	//подсистем дважды. Избавитьсьтя от hasSubsystem()?
+	//подсистем дважды. Избавиться от hasSubsystem()?
 	Subsystem* getSubsystem(Aspect a)
 	{
 		for(Subsystem* s: subsystems)

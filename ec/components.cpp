@@ -94,7 +94,7 @@ class ControllableSubsystem : public Subsystem
 
     void update(StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta){
         SDL_Event event = *(state->pollEvent());
-        if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN && (currentTime > lastTime + cooldown)){
+        if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN && (currentTime > lastTime + cooldown) && torpedosSpawned < 10){
             Entity* torpedo = spawnTorpedo(g, state, e);
             e->addEntity(torpedo);
             torpedosSpawned++;
@@ -156,7 +156,7 @@ class PointsSubsystem : public Subsystem
     ~PointsSubsystem(){
         if(countMeIn) {
             *pPoints += cost;
-            *pKills++;
+            *pKills  += 1;
         }
     }
 

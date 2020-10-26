@@ -9,6 +9,7 @@
 #include "fsm/FiniteStateMachine.h"
 #include "fsm/game.cpp"
 #include "utils.h"
+#include "fsm/states.h"
 
 //PREPROCESSOR DEFINES--------
 #define SCREEN_WIDTH 800
@@ -16,7 +17,6 @@
 #define SCREEN_FPS 60
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
-#define STATE_GAME 1
 
 //#define DEBUG 1
 
@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
 
     //Game state
     Game* gamestate = new Game();
-    game.registerState( STATE_GAME, screen, gamestate );//int id, SDL_Surface* display, GameState* state
-    game.switchState( STATE_GAME );
+    game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
+    game.switchState( states::game );
 
     while ( running ){
         fps_counter.start();
