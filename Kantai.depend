@@ -295,7 +295,7 @@
 	<stdio.h>
 	<string>
 
-1601224563 source:c:\sdl\labs\kantai\ec\spawner.cpp
+1601224697 source:c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
 1601224636 source:c:\sdl\labs\kantai\ec\components.cpp
@@ -327,14 +327,14 @@
 	"../engine/entity.h"
 	"../engine/engine.cpp"
 
-1600716392 c:\sdl\labs\kantai\utils.h
+1603643524 c:\sdl\labs\kantai\utils.h
 	<string>
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<string>
-	"SDL/SDL_ttf.h"
+	<SDL_ttf.h>
 
 1029325208 c:\sdl\sdl-1.2.15\include\sdl\\sdl_draw.h
 	"SDL.h"

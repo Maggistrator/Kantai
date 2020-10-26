@@ -30,7 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/SDL/SDL-1.2.15/include/SDL/" />
+			<Add directory="C:/sdl/SDL-1.2.15/include/SDL/" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDLmain -lSDL -lSDL_draw -lSDL_ttf -lSDL_image -lSDL.dll" />
@@ -45,6 +45,7 @@
 		<Unit filename="fsm/FiniteStateMachine.h" />
 		<Unit filename="fsm/game.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="ui/button.h" />
 		<Unit filename="utils.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
