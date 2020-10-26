@@ -33,8 +33,8 @@ SDL_Color backup_color = color;
 
 public:
     void (*onClick)(StateBasedGame*, SDL_Event*);  // функция-обработчик клика
-    SDL_Rect bounds = {0, 0, 200, 30};
-    SDL_Color textColor = { 0, 0, 0 };
+    SDL_Rect bounds = { 0, 0, 200, 30 };
+    SDL_Color text_color = { 0, 0, 0 };
     char *text = nullptr;
 
     /// можно создать кнопку, не устанавливая функцию, которую она будет выполнять
@@ -48,17 +48,19 @@ public:
     {
         text = myText;
         onClick = callback;
-        Button();
+        font = TTF_OpenFont( "res/CharisSILR.ttf", 18 );
     }
 
     void render(SDL_Surface* s)
     {
-        //Draw_Rect(s, bounds.x, bounds.y, bounds.w, bounds.h, SDL_MapRGB(s->format, color.r, color.g, color.b));
         SDL_FillRect(s, &bounds, SDL_MapRGB(s->format, color.r, color.g, color.b));
-        if(!text){
-            textsf = TTF_RenderText_Solid( font, text, textColor );
+        if(text != nullptr) std::cout << text << std::endl;
+        if(!(textsf = TTF_RenderUTF8_Solid(font, text, text_color))) {
+        } else {
+            //textpos = bounds;
             alignText();
-            SDL_BlitSurface( textsf, nullptr, s, &textpos );
+            SDL_BlitSurface(textsf,nullptr,s,&textpos);
+            SDL_FreeSurface(textsf);
         }
     }
 
@@ -128,7 +130,7 @@ private:
     {
         TTF_SizeUTF8(font, text, &(offset.w), &(offset.h));
         offset.x = (bounds.w - offset.w)/2;
-        offset.y = bounds.y + (bounds.h - offset.h)/2;
+        offset.y = (bounds.h - offset.h)/2;
         textpos.x = bounds.x + offset.x;
         textpos.y = bounds.y + offset.y;
         textpos.w = offset.w;
