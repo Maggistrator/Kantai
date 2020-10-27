@@ -49,18 +49,17 @@ public:
         text = myText;
         onClick = callback;
         font = TTF_OpenFont( "res/CharisSILR.ttf", 18 );
+        textsf = TTF_RenderUTF8_Solid(font, text, text_color);
     }
 
     void render(SDL_Surface* s)
     {
         SDL_FillRect(s, &bounds, SDL_MapRGB(s->format, color.r, color.g, color.b));
-        if(text != nullptr) std::cout << text << std::endl;
-        if(!(textsf = TTF_RenderUTF8_Solid(font, text, text_color))) {
+        if(!textsf) {
         } else {
             //textpos = bounds;
             alignText();
-            SDL_BlitSurface(textsf,nullptr,s,&textpos);
-            SDL_FreeSurface(textsf);
+            SDL_BlitSurface(textsf, nullptr, s, &textpos);
         }
     }
 

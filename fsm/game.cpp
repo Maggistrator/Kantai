@@ -21,28 +21,28 @@ using namespace std;
 
 class Game : public GameState
 {
-    //-----ñëóæåáíûå ïîëÿ-------//
+    //-----á«ã¦¥¡­ë¥ ¯®«ï-------//
     SDL_Event event;
     SDL_Surface* display;
     SDL_Surface* background;
     Engine entityManager;
     friend class Statistics;
-    //ìåòêà î÷êîâ--------------//
+    //¬¥âª  ®çª®¢--------------//
     SDL_Surface* textSurface;
     char* pointsLabel;
     TTF_Font *font = NULL;
     SDL_Color textColor = { 255, 255, 255 };
     SDL_Rect textPlaceholder = { 0, 50, 200, 50 };
 
-    //----èãðîâûå ïîëÿ---------//
+    //----¨£à®¢ë¥ ¯®«ï---------//
     struct levelData {
-        int level = 1;                  // òåêóùèé óðîâåíü
-        int points = 0;                 // î÷êè
-        int torpedosSpawned = 0;        // êîëè÷åñòâî âûïóùåííûõ òîðïåä
-        int killed = 0;                 // êîëè÷åñòâî óáèòûõ ïðîòèâíèêîâ
+        int level = 1;                  // â¥ªãé¨© ãà®¢¥­ì
+        int points = 0;                 // ®çª¨
+        int torpedosSpawned = 0;        // ª®«¨ç¥áâ¢® ¢ë¯ãé¥­­ëå â®à¯¥¤
+        int killed = 0;                 // ª®«¨ç¥áâ¢® ã¡¨âëå ¯à®â¨¢­¨ª®¢
     } ld;
-    int spawnCooldown = 120;        // çàäåðæêà ñïàóíà ïðîòèâíèêîâ
-    int spawnCounter = 0;           // òàéìåð ñïàóíà ïðîòèâíèêîâ
+    int spawnCooldown = 120;        // § ¤¥à¦ª  á¯ ã­  ¯à®â¨¢­¨ª®¢
+    int spawnCounter = 0;           // â ©¬¥à á¯ ã­  ¯à®â¨¢­¨ª®¢
     Entity* player = nullptr;
 
     int next_level_cooldown = 60;
@@ -51,10 +51,10 @@ class Game : public GameState
         this->display = display;
         background = loadOptimisedSurface( BACKGROUND_FILE_PATH, display );
         if( background == NULL )
-            cerr << "Íå óäàëîñü çàãðóçèòü SDL_image! Ïðè÷èíà: " << IMG_GetError() << endl;
+            cerr << "¥ ã¤ «®áì § £àã§¨âì SDL_image! à¨ç¨­ : " << IMG_GetError() << endl;
         font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
         if( font == NULL )
-            cerr << "Íå óäàëîñü çàãðóçèòü øðèôò CharisSILR! Ïðè÷èíà: " << TTF_GetError() << endl;
+            cerr << "¥ ã¤ «®áì § £àã§¨âì èà¨äâ CharisSILR! à¨ç¨­ : " << TTF_GetError() << endl;
         pointsLabel = new char[13];
         player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
@@ -63,7 +63,10 @@ class Game : public GameState
     void update( StateBasedGame* g, int delta ) {
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
-            else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) g->switchState(states::main_menu);
+            else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE){
+                clearLevel( g );
+                g->switchState(states::main_menu);
+            }
         }
 
         spawnEnemies(g);
@@ -72,24 +75,24 @@ class Game : public GameState
         ControllableSubsystem* ss = (ControllableSubsystem*)player->getSubsystem(controllable);
         ld.torpedosSpawned = ss->torpedosSpawned;
         if(ld.torpedosSpawned > 10) nextLevel( g );
-        // åñëè âûïóùåíî áîëåå 10 òîðïåä, äëÿ çàâåðøåíèÿ èãðû îñòàåòñÿ òîëüêî äîæäàòüñÿ, êîãäà âçîðâåòñÿ ïîñëåäíÿÿ òîðïåäà
+        // ¥á«¨ ¢ë¯ãé¥­® ¡®«¥¥ 10 â®à¯¥¤, ¤«ï § ¢¥àè¥­¨ï ¨£àë ®áâ ¥âáï â®«ìª® ¤®¦¤ âìáï, ª®£¤  ¢§®à¢¥âáï ¯®á«¥¤­ïï â®à¯¥¤ 
         if(ld.torpedosSpawned >= 10)
             if(next_level_cooldown <= 0) nextLevel( g );
             else next_level_cooldown--;
     }
 
     void render( SDL_Surface* display ) {
-        //îòðèñîâêà ôîíà
+        //®âà¨á®¢ª  ä®­ 
         SDL_BlitSurface( background, NULL, display, NULL );
-        //îòðèñîâêà ñóùíîñòåé
+        //®âà¨á®¢ª  áãé­®áâ¥©
         entityManager.render( display );
-        //îòðèñîâêà ìåòêè î÷êîâ
+        //®âà¨á®¢ª  ¬¥âª¨ ®çª®¢
         sprintf(pointsLabel, "%s%d", "Points: ", ld.points);
         textSurface = TTF_RenderText_Solid( font, pointsLabel, textColor );
         SDL_BlitSurface( textSurface, nullptr, display, &textPlaceholder );
     }
 
-    //Ìåòîä ãåíåðàöèè ïðîòèâíèêîâ. çàâèñèò îò óðîâíÿ.
+    //Œ¥â®¤ £¥­¥à æ¨¨ ¯à®â¨¢­¨ª®¢. § ¢¨á¨â ®â ãà®¢­ï.
     void spawnEnemies(StateBasedGame* g){
         if(spawnCounter > 0)spawnCounter--;
         if(rand() % 2 == 0 && spawnCounter <= 0 && next_level_cooldown == 60) {

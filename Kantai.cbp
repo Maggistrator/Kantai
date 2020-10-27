@@ -46,6 +46,7 @@
 		<Unit filename="fsm/finish_game.cpp" />
 		<Unit filename="fsm/game.cpp" />
 		<Unit filename="fsm/main_menu.cpp" />
+		<Unit filename="fsm/rules.cpp" />
 		<Unit filename="fsm/states.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="ui/button.h" />

@@ -5,10 +5,12 @@
 #include <SDL_image.h>
 #include <iostream>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "fsm/FiniteStateMachine.h"
 #include "fsm/game.cpp"
 #include "fsm/main_menu.cpp"
+#include "fsm/rules.cpp"
 #include "utils.h"
 #include "fsm/states.h"
 
@@ -25,21 +27,24 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    freopen("CON", "w", stdout); // redirects stdout
+    freopen("CON", "w", stderr); // redirects stderr
+
     //----------------------------INITALISING LIBRARIES-----------------------------------//
     SDL_Surface* screen;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        cerr << "Íå óäàëîñü çàãðóçèòü SDL! Ïðè÷èíà: " << SDL_GetError() << endl;
+        cerr << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ SDL! ÐŸÑ€Ð¸Ñ‡Ð¸Ð½Ð°: " << SDL_GetError() << endl;
         return 1;
     } else atexit (SDL_Quit);
 
     if (TTF_Init()) {
-        cerr << "Íå óäàëîñü çàãðóçèòü SDL_ttf! Ïðè÷èíà: " << TTF_GetError() << endl;
+        cerr << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ SDL_ttf! ÐŸÑ€Ð¸Ñ‡Ð¸Ð½Ð°: " << TTF_GetError() << endl;
         return 2;
     } else atexit (TTF_Quit);
 
     if(!(screen=SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_ANYFORMAT)))
     {
-        cerr << "Íå óäàëîñü ñîçäàòü îêíî! Ïðè÷èíà: " << SDL_GetError() << endl;
+        cerr << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ð¾ÐºÐ½Ð¾! ÐŸÑ€Ð¸Ñ‡Ð¸Ð½Ð°: " << SDL_GetError() << endl;
         return 88;
     }
 
@@ -47,13 +52,11 @@ int main(int argc, char* argv[])
     if( !( IMG_Init( imgFlags ) & imgFlags ) )
     {
         SDL_FreeSurface(screen);
-        cerr << "Íå óäàëîñü çàãðóçèòü SDL_image! Ïðè÷èíà: " << IMG_GetError() << endl;
+        cerr << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ SDL_image! ÐŸÑ€Ð¸Ñ‡Ð¸Ð½Ð°: " << IMG_GetError() << endl;
     } else atexit (IMG_Quit);
 
     SDL_SetAlpha(screen, SDL_SRCALPHA , SDL_ALPHA_OPAQUE);
 
-    freopen("CON", "w", stdout); // redirects stdout
-    freopen("CON", "w", stderr); // redirects stderr
 
     //--------------------------------MAIN GAME CYCLE-------------------------------//
     int fps = 0;
@@ -67,8 +70,8 @@ int main(int argc, char* argv[])
     SDL_Surface* textSurface;
     char* fpsLabel;
     TTF_Font *font = NULL;
-    SDL_Rect place4fps = {0,50,200,50};
-    SDL_Color textColor = { 0, 0, 0 };
+    SDL_Rect place4fps = {0, 0, 200, 50};
+    SDL_Color textColor = { 255, 255, 255 };
     font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
     fpsLabel = new char[13];
     #endif // DEBUG
@@ -78,7 +81,9 @@ int main(int argc, char* argv[])
     //Game state
     Game* gamestate = new Game();
     MainMenu* mainMenuState = new MainMenu();
+    Rules* rulesState = new Rules();
     game.registerState( states::main_menu, screen, mainMenuState );
+    game.registerState( states::rules, screen, rulesState );
     game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
     game.switchState( states::main_menu );
 

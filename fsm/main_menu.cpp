@@ -34,7 +34,7 @@ using namespace std;
 
     static void rulesOnClick(StateBasedGame* g , SDL_Event* e)
     {
-        g->switchState(states::game);
+        g->switchState(states::rules);
     }
 
     static void exitOnClick(StateBasedGame* g , SDL_Event* e)
@@ -77,8 +77,6 @@ public:
     {
         for(int i = 0; i < 5; i++) buttons[i]->render(display);
     }
-
-
 
     SDL_Event* pollEvent( void )
     {
