@@ -5,42 +5,26 @@
 #include <SDL_ttf.h>
 #include <SDL_draw.h>
 #include "../fsm/FiniteStateMachine.h"
+#include "abstract_element.h"
 
 #define ACTIVE_COLOR { 0, 255, 0 }
 #define CLICK_COLOR { 0, 0, 255 }
 
-/*
-    Прямоугольник с целочисленными координатами и размерами
-    SDL_Rect зачем-то ограничен UInt16 в связи с чем практически неюзабелен с SDL_ttf
-*/
-struct int_Rect
-{
-    int x, y, w, h;
-};
-
 ///Класс кнопки. Обрабатывает клик, выполняет скормленную ему функцию реакции на него.
-class Button
+class Button : public AbstractUIElement
 {
-//class StateBasedGame;
-// Набор приватных полей обслуживающих вывод текста ----------
-SDL_Surface* textsf;
-TTF_Font *font = nullptr;
-int_Rect offset;
-SDL_Rect textpos;
-//------------------------------------------------------------
 SDL_Color color = { 255, 255, 255 };
 SDL_Color backup_color = color;
 
 public:
     void (*onClick)(StateBasedGame*, SDL_Event*);  // функция-обработчик клика
-    SDL_Rect bounds = { 0, 0, 200, 30 };
-    SDL_Color text_color = { 0, 0, 0 };
-    char *text = nullptr;
 
     /// можно создать кнопку, не устанавливая функцию, которую она будет выполнять
     Button()
     {
-        font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
+        text_color = {0,0,0};
+        font = TTF_OpenFont( "res/CharisSILR.ttf", 22 );
+        textsf = TTF_RenderUTF8_Solid(font, text, text_color);
     }
 
     /// инициализация кнопки функцией, которую она выполняет
@@ -48,7 +32,8 @@ public:
     {
         text = myText;
         onClick = callback;
-        font = TTF_OpenFont( "res/CharisSILR.ttf", 18 );
+        text_color = {0,0,0};
+        font = TTF_OpenFont( "res/CharisSILR.ttf", 22 );
         textsf = TTF_RenderUTF8_Solid(font, text, text_color);
     }
 
@@ -123,19 +108,6 @@ public:
         }
     }
 
-private:
-    void alignText()
-    {
-        TTF_SizeUTF8(font, text, &(offset.w), &(offset.h));
-        offset.x = (bounds.w - offset.w)/2;
-        offset.y = (bounds.h - offset.h)/2;
-        textpos.x = bounds.x + offset.x;
-        textpos.y = bounds.y + offset.y;
-        textpos.w = offset.w;
-        textpos.h = offset.h;
-    }
-
-public:
     void setColor(SDL_Color& new_color)
     {
         backup_color = new_color;

@@ -146,7 +146,7 @@ class Game : public GameState
         return display;
     }
 
-    void exit(){
+    ~Game(){
         delete pointsLabel;
         TTF_CloseFont(font);
         SDL_FreeSurface( background );

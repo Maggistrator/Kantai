@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "../ui/button.h"
+#include "../ui/label.h"
 
 using namespace std;
 
@@ -19,28 +20,20 @@ class Rules : public GameState
     SDL_Event event;
     SDL_Surface* screen;
     Button* back_button;
-    char *text = "I hate SDL";
-
-    SDL_Surface* textsf;
-    TTF_Font *font = nullptr;
-    int_Rect offset;
-    SDL_Rect textpos;
-    SDL_Rect bounds = { 0, 0, 600, 400 };
-    SDL_Color text_color = { 255, 255, 255 };
+    Label* text;
 
 public:
     void init( SDL_Surface* display, StateBasedGame* g )
     {
+        screen = display;
         back_button = new Button(backButtonOnClick, "Back");
+        back_button->bounds.x = (display->w - back_button->bounds.w)/2;
+        back_button->bounds.y = display->h - back_button->bounds.h - 50;
 
-        font = TTF_OpenFont( "res/CharisSILR.ttf", 12 );
-        textsf = TTF_RenderUTF8_Solid(font, text, text_color);
-        static_assert(sizeof(wchar_t) == sizeof(Uint16));
-
-        for(int i = 0; i < 5; i++) {
-            back_button->bounds.x = (display->w - back_button->bounds.w)/2;
-            back_button->bounds.y = display->h - back_button->bounds.h - 50;
-        }
+        text = new Label("I hate SDL!");
+        text->bounds.w = 300;
+        text->bounds.x = (screen->w - text->bounds.w)/2;
+        text->bounds.y = screen->h/2;
     }
 
     void update( StateBasedGame* g, int delta )
@@ -54,22 +47,7 @@ public:
     void render( SDL_Surface* display )
     {
         back_button->render(display);
-        if(!textsf) {
-        } else {
-            alignText();
-            SDL_BlitSurface(textsf, nullptr, display, &textpos);
-        }
-    }
-
-    void alignText()
-    {
-        TTF_SizeUTF8(font, text, &(offset.w), &(offset.h));
-        offset.x = (bounds.w - offset.w)/2;
-        offset.y = (bounds.h - offset.h)/2;
-        textpos.x = bounds.x + offset.x;
-        textpos.y = bounds.y + offset.y;
-        textpos.w = offset.w;
-        textpos.h = offset.h;
+        text->render(display);
     }
 
     SDL_Event* pollEvent( void )
@@ -80,6 +58,12 @@ public:
     SDL_Surface* getScreen()
     {
         return screen;
+    }
+
+    ~Rules()
+    {
+        delete back_button;
+        delete text;
     }
 };
 

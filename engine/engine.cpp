@@ -34,8 +34,10 @@ public:
             Entity* toDelete = removable.front();
             entities.remove(toDelete);
             removable.remove(toDelete);
+            #ifdef DEBUG
             cout << "removable size:"<<removable.size()<<endl;
             cout << "deleting:"<<toDelete<<endl;
+            #endif // DEBUG
             delete toDelete;
 	    }
 		for(Entity* e: entities) e->update(g, state, this, delta );//StateBasedGame* g, GameState* state, Engine* e, int delta

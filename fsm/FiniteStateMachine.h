@@ -20,8 +20,6 @@ class GameState {
     virtual SDL_Surface* getScreen( void ) = 0;
 
     virtual SDL_Event* pollEvent( void ) = 0;
-
-    virtual void exit( void ) {};
 };
 
 class StateBasedGame {
@@ -52,7 +50,6 @@ public:
         for (GameStateIndexer* indexer: states_list) {
             if(indexer->id == id) {
                 if(indexer != currentState) {
-                    indexer->state->exit();
                     states_list.remove(indexer);
                     return;
                 } else {
@@ -89,8 +86,12 @@ public:
     }
 
     void exit() {
-        for (GameStateIndexer* in : states_list) in->state->exit();
-        exitPrivilegie = 0;
+        for(GameStateIndexer* i : states_list)
+        {
+            delete i->state;
+            delete i;
+        }
+        std::exit( 0 );
     }
 };
 

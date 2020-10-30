@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1604013617 source:c:\sdl\labs\kantai\main.cpp
+1604020092 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -239,7 +239,7 @@
 	<SDL.h>
 	<iostream>
 
-1603750863 source:c:\sdl\labs\kantai\fsm\game.cpp
+1604020464 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -274,12 +274,12 @@
 	<stdio.h>
 	<string>
 
-1604012672 c:\sdl\labs\kantai\fsm\finitestatemachine.h
+1604020875 c:\sdl\labs\kantai\fsm\finitestatemachine.h
 	<SDL.h>
 	<list>
 	<iostream>
 
-1603750863 c:\sdl\labs\kantai\fsm\game.cpp
+1604020464 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -369,18 +369,19 @@
 	<SDL.h>
 	<SDL_ttf.h>
 
-1603747624 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
+1604017080 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1604016803 c:\sdl\labs\kantai\ui\button.h
+1604020033 c:\sdl\labs\kantai\ui\button.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
 	"../fsm/FiniteStateMachine.h"
+	"abstract_element.h"
 
 1604017080 c:\sdl\labs\kantai\fsm\main_menu.cpp
 	"states.h"
@@ -389,19 +390,21 @@
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1604012693 source:c:\sdl\labs\kantai\fsm\rules.cpp
+1604020109 source:c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
+	"../ui/label.h"
 
-1604012693 c:\sdl\labs\kantai\fsm\rules.cpp
+1604020109 c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
+	"../ui/label.h"
 
 1604015955 c:\sdl\labs\kantai\fsm\greetings.cpp
 	"states.h"
@@ -410,10 +413,11 @@
 	<SDL_ttf.h>
 	"../ui/label.h"
 
-1604015750 c:\sdl\labs\kantai\ui\label.h
+1604019283 c:\sdl\labs\kantai\ui\label.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
+	"abstract_element.h"
 
 1604015955 source:c:\sdl\labs\kantai\fsm\greetings.cpp
 	"states.h"
@@ -421,4 +425,9 @@
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/label.h"
+
+1604019304 c:\sdl\labs\kantai\ui\abstract_element.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<SDL_draw.h>
 
