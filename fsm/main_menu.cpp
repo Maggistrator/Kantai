@@ -52,6 +52,7 @@ public:
 
     void init( SDL_Surface* display, StateBasedGame* g )
     {
+        screen = display;
         b_newgame = new Button(gameOnClick, "New game");
         b_profiles = new Button(profilesOnClick, "Profiles");
         b_highs = new Button(highsOnClick, "Highscores");
@@ -62,15 +63,14 @@ public:
             buttons[i]->bounds.x = (display->w - buttons[i]->bounds.w)/2;
             buttons[i]->bounds.y = (display->h - (buttons[i]->bounds.h + BUTTON_OFFSET) * 5)/2  + ((buttons[i]->bounds.h + BUTTON_OFFSET) * i);
         }
-
     }
 
     void update( StateBasedGame* g, int delta )
     {
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
+            for(int i = 0; i < 5; i++) buttons[i]->update(g, &event);
         }
-        for(int i = 0; i < 5; i++) buttons[i]->update(g, &event);
     }
 
     void render( SDL_Surface* display )
@@ -88,8 +88,6 @@ public:
         return screen;
     }
 
-    void exit( void )
-    {}
 };
 
 #endif // MAIN_MENU
