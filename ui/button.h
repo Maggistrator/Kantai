@@ -55,8 +55,7 @@ public:
     void render(SDL_Surface* s)
     {
         SDL_FillRect(s, &bounds, SDL_MapRGB(s->format, color.r, color.g, color.b));
-        if(!textsf) {
-        } else {
+        if(textsf) {
             //textpos = bounds;
             alignText();
             SDL_BlitSurface(textsf, nullptr, s, &textpos);
@@ -115,9 +114,9 @@ public:
                          color = CLICK_COLOR;
                          onClick(g, e);
                     break;
-
                     case SDL_MOUSEBUTTONUP:
-                        color = ACTIVE_COLOR;
+                         color = CLICK_COLOR;
+                         onClick(g, e);
                     break;
                 }
             }

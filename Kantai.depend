@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1603757279 source:c:\sdl\labs\kantai\main.cpp
+1604013617 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -11,6 +11,7 @@
 	"fsm/game.cpp"
 	"fsm/main_menu.cpp"
 	"fsm/rules.cpp"
+	"fsm/greetings.cpp"
 	"utils.h"
 	"fsm/states.h"
 
@@ -273,7 +274,7 @@
 	<stdio.h>
 	<string>
 
-1603736008 c:\sdl\labs\kantai\fsm\finitestatemachine.h
+1604012672 c:\sdl\labs\kantai\fsm\finitestatemachine.h
 	<SDL.h>
 	<list>
 	<iostream>
@@ -311,7 +312,7 @@
 1601224697 88c59258e13d0331217171ae0b5fc93e8988c
 	"components.cpp"
 
-1603129344 source:c:\sdl\labs\kantai\ec\components.cpp
+1604015853 source:c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -327,7 +328,7 @@
 1602777404 c:\sdl\labs\kantai\ec\spawner.cpp
 	"components.cpp"
 
-1603129344 c:\sdl\labs\kantai\ec\components.cpp
+1604015853 c:\sdl\labs\kantai\ec\components.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<string>
@@ -360,7 +361,7 @@
 	<SDL.h>
 	<SDL_ttf.h>
 
-1603747511 c:\sdl\labs\kantai\fsm\states.h
+1604013011 c:\sdl\labs\kantai\fsm\states.h
 
 1603129756 c:\sdl\labs\kantai\fsm\finish_game.cpp
 	"states.h"
@@ -375,7 +376,7 @@
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1603749602 c:\sdl\labs\kantai\ui\button.h
+1604016079 c:\sdl\labs\kantai\ui\button.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
@@ -388,17 +389,36 @@
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1603756751 source:c:\sdl\labs\kantai\fsm\rules.cpp
+1604012693 source:c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1603757474 c:\sdl\labs\kantai\fsm\rules.cpp
+1604012693 c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
+
+1604015955 c:\sdl\labs\kantai\fsm\greetings.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/label.h"
+
+1604015750 c:\sdl\labs\kantai\ui\label.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<SDL_draw.h>
+
+1604015955 source:c:\sdl\labs\kantai\fsm\greetings.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/label.h"
 

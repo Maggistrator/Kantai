@@ -81,9 +81,6 @@ public:
     {
         return screen;
     }
-
-    void exit( void )
-    {}
 };
 
 #endif // MAIN_MENU

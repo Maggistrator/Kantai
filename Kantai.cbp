@@ -45,11 +45,13 @@
 		<Unit filename="fsm/FiniteStateMachine.h" />
 		<Unit filename="fsm/finish_game.cpp" />
 		<Unit filename="fsm/game.cpp" />
+		<Unit filename="fsm/greetings.cpp" />
 		<Unit filename="fsm/main_menu.cpp" />
 		<Unit filename="fsm/rules.cpp" />
 		<Unit filename="fsm/states.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="ui/button.h" />
+		<Unit filename="ui/label.h" />
 		<Unit filename="utils.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

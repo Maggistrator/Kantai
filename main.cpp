@@ -11,6 +11,7 @@
 #include "fsm/game.cpp"
 #include "fsm/main_menu.cpp"
 #include "fsm/rules.cpp"
+#include "fsm/greetings.cpp"
 #include "utils.h"
 #include "fsm/states.h"
 
@@ -82,10 +83,12 @@ int main(int argc, char* argv[])
     Game* gamestate = new Game();
     MainMenu* mainMenuState = new MainMenu();
     Rules* rulesState = new Rules();
+    Greetings* greetingsState = new Greetings();
+    game.registerState( states::greetings, screen, greetingsState );
     game.registerState( states::main_menu, screen, mainMenuState );
     game.registerState( states::rules, screen, rulesState );
     game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
-    game.switchState( states::main_menu );
+    game.switchState( states::greetings );
 
     while ( running ){
         fps_counter.start();
@@ -93,7 +96,7 @@ int main(int argc, char* argv[])
         frame++;
         fps = frame % FRAMES_PER_SECOND;
 
-        SDL_FillRect(screen, NULL, 0x000000);
+        SDL_FillRect( screen, NULL, 0x000000 );
         game.update( dc.delta );
         game.render( screen );
 
@@ -107,10 +110,10 @@ int main(int argc, char* argv[])
         if(fps_counter.get_ticks() < 1000 / FRAMES_PER_SECOND )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps_counter.get_ticks() );
 
-        SDL_Flip(screen);
+        SDL_Flip( screen );
     }
 
-    SDL_FreeSurface(screen);
+    SDL_FreeSurface( screen );
 
     return 0;
 }

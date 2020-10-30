@@ -11,7 +11,7 @@
 #include "../engine/entity.h"
 #include "../engine/engine.cpp"
 
-#define DEBUG
+//#define DEBUG
 
 using namespace std;
 

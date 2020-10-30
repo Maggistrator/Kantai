@@ -21,7 +21,7 @@ class GameState {
 
     virtual SDL_Event* pollEvent( void ) = 0;
 
-    virtual void exit( void ) = 0;
+    virtual void exit( void ) {};
 };
 
 class StateBasedGame {
