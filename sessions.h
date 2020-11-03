@@ -1,3 +1,5 @@
+#ifndef SESSIONS
+#define SESSIONS
 using namespace std;
 
 class Player
@@ -16,3 +18,5 @@ static struct Session
 {
     list<Player> players;
 } current_session;
+
+#endif // SESSIONS

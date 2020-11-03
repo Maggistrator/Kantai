@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "../ui/label.h"
+#include "../ui/text_field.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class Greetings : public GameState
     SDL_Surface* screen;
     Label* game_name;
     Label* dev_name;
+    TextField tf;
 
 public:
     void init( SDL_Surface* display, StateBasedGame* g )
@@ -43,9 +45,10 @@ public:
     {
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
+            tf.update(event);
         }
         if(timer < waitAbit) timer++;
-        else g->switchState(states::main_menu);
+        else g->switchState(states::login);
     }
 
     void render( SDL_Surface* display )

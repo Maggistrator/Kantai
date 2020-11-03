@@ -10,15 +10,16 @@ class Label : public AbstractUIElement
 {
 
 public:
+    Label(){}
+
     Label( char* myText )
     {
         text = myText;
         setFont("res/CharisSILR.ttf", 18);
-
         textsf = TTF_RenderUTF8_Blended( font, text, text_color );
     }
 
-    void render(SDL_Surface* s)
+    virtual void render(SDL_Surface* s)
     {
         #ifdef DEBUG
         Draw_Rect(s, bounds.x,bounds.y, bounds.w, bounds.h,

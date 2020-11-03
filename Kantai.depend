@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1604020092 source:c:\sdl\labs\kantai\main.cpp
+1604436650 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -12,6 +12,7 @@
 	"fsm/main_menu.cpp"
 	"fsm/rules.cpp"
 	"fsm/greetings.cpp"
+	"fsm/login.cpp"
 	"utils.h"
 	"fsm/states.h"
 
@@ -361,7 +362,7 @@
 	<SDL.h>
 	<SDL_ttf.h>
 
-1604013011 c:\sdl\labs\kantai\fsm\states.h
+1604435464 c:\sdl\labs\kantai\fsm\states.h
 
 1603129756 c:\sdl\labs\kantai\fsm\finish_game.cpp
 	"states.h"
@@ -390,7 +391,7 @@
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1604020109 source:c:\sdl\labs\kantai\fsm\rules.cpp
+1604434406 source:c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -398,7 +399,7 @@
 	"../ui/button.h"
 	"../ui/label.h"
 
-1604020109 c:\sdl\labs\kantai\fsm\rules.cpp
+1604434406 c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -406,28 +407,44 @@
 	"../ui/button.h"
 	"../ui/label.h"
 
-1604015955 c:\sdl\labs\kantai\fsm\greetings.cpp
+1604435476 c:\sdl\labs\kantai\fsm\greetings.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/label.h"
+	"../ui/text_field.h"
 
-1604019283 c:\sdl\labs\kantai\ui\label.h
+1604437520 c:\sdl\labs\kantai\ui\label.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
 	"abstract_element.h"
 
-1604015955 source:c:\sdl\labs\kantai\fsm\greetings.cpp
+1604435476 source:c:\sdl\labs\kantai\fsm\greetings.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/label.h"
+	"../ui/text_field.h"
 
 1604019304 c:\sdl\labs\kantai\ui\abstract_element.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
+
+1604437798 c:\sdl\labs\kantai\ui\text_field.h
+	<SDL.h>
+	<cstring>
+	"abstract_element.h"
+
+1604436689 c:\sdl\labs\kantai\fsm\login.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/button.h"
+	"../ui/label.h"
+	"../ui/text_field.h"
 

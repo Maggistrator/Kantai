@@ -2,7 +2,7 @@
 #define STATES_H_INCLUDED
 
 enum states {
-    main_menu, game, results, highscores, rules, greetings
+    main_menu, game, results, highscores, rules, greetings, login
 };
 
 #endif // STATES_H_INCLUDED

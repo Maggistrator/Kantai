@@ -12,6 +12,7 @@
 #include "fsm/main_menu.cpp"
 #include "fsm/rules.cpp"
 #include "fsm/greetings.cpp"
+#include "fsm/login.cpp"
 #include "utils.h"
 #include "fsm/states.h"
 
@@ -57,6 +58,7 @@ int main(int argc, char* argv[])
     } else atexit (IMG_Quit);
 
     SDL_SetAlpha(screen, SDL_SRCALPHA , SDL_ALPHA_OPAQUE);
+    SDL_EnableUNICODE(1);
 
 
     //--------------------------------MAIN GAME CYCLE-------------------------------//
@@ -84,10 +86,12 @@ int main(int argc, char* argv[])
     MainMenu* mainMenuState = new MainMenu();
     Rules* rulesState = new Rules();
     Greetings* greetingsState = new Greetings();
+    Login* loginState = new Login();
     game.registerState( states::greetings, screen, greetingsState );
     game.registerState( states::main_menu, screen, mainMenuState );
     game.registerState( states::rules, screen, rulesState );
     game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
+    game.registerState( states::login, screen, loginState );
     game.switchState( states::greetings );
 
     while ( running ){
