@@ -32,6 +32,9 @@ int main(int argc, char* argv[])
     freopen("CON", "w", stdout); // redirects stdout
     freopen("CON", "w", stderr); // redirects stderr
 
+    setlocale(LC_ALL, "ru_RU");
+    SDL_WM_GrabInput(SDL_GRAB_ON);
+
     //----------------------------INITALISING LIBRARIES-----------------------------------//
     SDL_Surface* screen;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {

@@ -50,6 +50,7 @@
 		<Unit filename="fsm/rules.cpp" />
 		<Unit filename="fsm/states.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="sessions.h" />
 		<Unit filename="ui/abstract_element.h" />
 		<Unit filename="ui/button.h" />
 		<Unit filename="ui/label.h" />

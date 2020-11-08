@@ -30,7 +30,7 @@ public:
         back_button->bounds.x = (display->w - back_button->bounds.w)/2;
         back_button->bounds.y = display->h - back_button->bounds.h - 50;
 
-        text = new Label("Ненавижу, блять, SDL");
+        text = new Label(" Ненавижу, блять, SDL ");
         text->bounds.w = 300;
         text->bounds.x = (screen->w - text->bounds.w)/2;
         text->bounds.y = screen->h/2;

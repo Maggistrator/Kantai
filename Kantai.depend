@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1604436650 source:c:\sdl\labs\kantai\main.cpp
+1604589670 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -391,7 +391,7 @@
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1604434406 source:c:\sdl\labs\kantai\fsm\rules.cpp
+1604588883 source:c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -399,7 +399,7 @@
 	"../ui/button.h"
 	"../ui/label.h"
 
-1604434406 c:\sdl\labs\kantai\fsm\rules.cpp
+1604588883 c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -415,7 +415,7 @@
 	"../ui/label.h"
 	"../ui/text_field.h"
 
-1604437520 c:\sdl\labs\kantai\ui\label.h
+1604588880 c:\sdl\labs\kantai\ui\label.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
@@ -434,7 +434,7 @@
 	<SDL_ttf.h>
 	<SDL_draw.h>
 
-1604437798 c:\sdl\labs\kantai\ui\text_field.h
+1604813145 c:\sdl\labs\kantai\ui\text_field.h
 	<SDL.h>
 	<cstring>
 	"abstract_element.h"
