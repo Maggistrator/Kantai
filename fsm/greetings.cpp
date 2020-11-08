@@ -16,20 +16,18 @@ class Greetings : public GameState
     SDL_Surface* screen;
     Label* game_name;
     Label* dev_name;
-    TextField tf;
 
 public:
     void init( SDL_Surface* display, StateBasedGame* g )
     {
         screen = display;
-        game_name = new Label("THE BATTLESHIPS");
-        dev_name = new Label("Denis Levikhin, I594");
+        game_name = new Label("МОРСКОЙ БОЙ");
+        dev_name = new Label("Денис Левихин, И594");
 
         game_name->alignment = Label::Align::CENTER;
         dev_name->alignment = Label::Align::CENTER;
 
         game_name->bounds.w = 300;
-        game_name->bounds.y = 50;
         game_name->setFont("res/CharisSILR.ttf", 24);
         game_name->bounds.x = (screen->w - game_name->bounds.w)/2;
         game_name->bounds.y = screen->h/2 - 50;
@@ -45,7 +43,6 @@ public:
     {
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
-            tf.update(event);
         }
         if(timer < waitAbit) timer++;
         else g->switchState(states::login);

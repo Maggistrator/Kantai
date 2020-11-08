@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1604589670 source:c:\sdl\labs\kantai\main.cpp
+1604863610 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -13,6 +13,7 @@
 	"fsm/rules.cpp"
 	"fsm/greetings.cpp"
 	"fsm/login.cpp"
+	"fsm/highscores.cpp"
 	"utils.h"
 	"fsm/states.h"
 
@@ -370,36 +371,28 @@
 	<SDL.h>
 	<SDL_ttf.h>
 
-1604017080 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
+1604853980 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1604020033 c:\sdl\labs\kantai\ui\button.h
+1604862399 c:\sdl\labs\kantai\ui\button.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_draw.h>
 	"../fsm/FiniteStateMachine.h"
 	"abstract_element.h"
 
-1604017080 c:\sdl\labs\kantai\fsm\main_menu.cpp
+1604853980 c:\sdl\labs\kantai\fsm\main_menu.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
 	<SDL_ttf.h>
 	"../ui/button.h"
 
-1604588883 source:c:\sdl\labs\kantai\fsm\rules.cpp
-	"states.h"
-	"FiniteStateMachine.h"
-	<SDL.h>
-	<SDL_ttf.h>
-	"../ui/button.h"
-	"../ui/label.h"
-
-1604588883 c:\sdl\labs\kantai\fsm\rules.cpp
+1604852270 source:c:\sdl\labs\kantai\fsm\rules.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -407,7 +400,15 @@
 	"../ui/button.h"
 	"../ui/label.h"
 
-1604435476 c:\sdl\labs\kantai\fsm\greetings.cpp
+1604852270 c:\sdl\labs\kantai\fsm\rules.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/button.h"
+	"../ui/label.h"
+
+1604859246 c:\sdl\labs\kantai\fsm\greetings.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -421,7 +422,7 @@
 	<SDL_draw.h>
 	"abstract_element.h"
 
-1604435476 source:c:\sdl\labs\kantai\fsm\greetings.cpp
+1604859246 source:c:\sdl\labs\kantai\fsm\greetings.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -434,12 +435,22 @@
 	<SDL_ttf.h>
 	<SDL_draw.h>
 
-1604813145 c:\sdl\labs\kantai\ui\text_field.h
+1604864677 c:\sdl\labs\kantai\ui\text_field.h
 	<SDL.h>
 	<cstring>
 	"abstract_element.h"
 
-1604436689 c:\sdl\labs\kantai\fsm\login.cpp
+1604865785 c:\sdl\labs\kantai\fsm\login.cpp
+	"states.h"
+	"FiniteStateMachine.h"
+	<SDL.h>
+	<SDL_ttf.h>
+	"../ui/button.h"
+	"../ui/label.h"
+	"../sessions.h"
+	"../ui/text_field.h"
+
+1604852268 source:c:\sdl\labs\kantai\fsm\login.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -447,4 +458,28 @@
 	"../ui/button.h"
 	"../ui/label.h"
 	"../ui/text_field.h"
+
+1604864294 source:c:\sdl\labs\kantai\fsm\highscores.cpp
+	<stdio.h>
+	<stdlib.h>
+	<SDL.h>
+	<SDL_ttf.h>
+	"states.h"
+	"FiniteStateMachine.h"
+	"../ui/label.h"
+	"../ui/button.h"
+	"../sessions.h"
+
+1604864294 c:\sdl\labs\kantai\fsm\highscores.cpp
+	<stdio.h>
+	<stdlib.h>
+	<SDL.h>
+	<SDL_ttf.h>
+	"states.h"
+	"FiniteStateMachine.h"
+	"../ui/label.h"
+	"../ui/button.h"
+	"../sessions.h"
+
+1604864314 c:\sdl\labs\kantai\sessions.h
 

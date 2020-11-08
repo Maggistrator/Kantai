@@ -29,7 +29,7 @@ using namespace std;
 
     static void highsOnClick(StateBasedGame* g , SDL_Event* e)
     {
-        g->switchState(states::game);
+        g->switchState(states::highscores);
     }
 
     static void rulesOnClick(StateBasedGame* g , SDL_Event* e)
@@ -53,11 +53,11 @@ public:
     void init( SDL_Surface* display, StateBasedGame* g )
     {
         screen = display;
-        b_newgame = new Button(gameOnClick, "New game");
-        b_profiles = new Button(profilesOnClick, "Profiles");
-        b_highs = new Button(highsOnClick, "Highscores");
-        b_rules = new Button(rulesOnClick, "Rules");
-        b_exit = new Button(exitOnClick, "Exit");
+        b_newgame = new Button(gameOnClick, "Новая игра");
+        b_profiles = new Button(profilesOnClick, "Профили");
+        b_highs = new Button(highsOnClick, "Рекорды");
+        b_rules = new Button(rulesOnClick, "Правила");
+        b_exit = new Button(exitOnClick, "Выход");
 
         for(int i = 0; i < 5; i++) {
             buttons[i]->bounds.x = (display->w - buttons[i]->bounds.w)/2;

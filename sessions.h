@@ -4,11 +4,11 @@ using namespace std;
 
 class Player
 {
+    public:
     char* name;                 // Имя игрока, вводится единожды и не изменяется
 
-    public:
     list<int> scores;           // Очки за все проведенные за сессию игры
-    Player(const char* name)
+    Player(char* name)
     {
         this->name = name;
     }
@@ -16,7 +16,8 @@ class Player
 
 static struct Session
 {
-    list<Player> players;
+    list<Player*> players;
+    Player* current_player;
 } current_session;
 
 #endif // SESSIONS

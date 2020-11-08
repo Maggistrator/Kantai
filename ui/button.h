@@ -10,24 +10,25 @@
 #define ACTIVE_COLOR { 0, 255, 0 }
 #define CLICK_COLOR { 0, 0, 255 }
 
-///Êëàññ êíîïêè. Îáðàáàòûâàåò êëèê, âûïîëíÿåò ñêîðìëåííóþ åìó ôóíêöèþ ðåàêöèè íà íåãî.
+///ÐšÐ»Ð°ÑÑ ÐºÐ½Ð¾Ð¿ÐºÐ¸. ÐžÐ±Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÑ‚ ÐºÐ»Ð¸Ðº, Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÑÐµÑ‚ ÑÐºÐ¾Ñ€Ð¼Ð»ÐµÐ½Ð½ÑƒÑŽ ÐµÐ¼Ñƒ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ Ñ€ÐµÐ°ÐºÑ†Ð¸Ð¸ Ð½Ð° Ð½ÐµÐ³Ð¾.
 class Button : public AbstractUIElement
 {
 SDL_Color color = { 255, 255, 255 };
 SDL_Color backup_color = color;
 
 public:
-    void (*onClick)(StateBasedGame*, SDL_Event*);  // ôóíêöèÿ-îáðàáîò÷èê êëèêà
+    void (*onClick)(StateBasedGame*, SDL_Event*);  // Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ-Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ñ‡Ð¸Ðº ÐºÐ»Ð¸ÐºÐ°
 
-    /// ìîæíî ñîçäàòü êíîïêó, íå óñòàíàâëèâàÿ ôóíêöèþ, êîòîðóþ îíà áóäåò âûïîëíÿòü
-    Button()
+    /// Ð¼Ð¾Ð¶Ð½Ð¾ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ, Ð½Ðµ ÑƒÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ, ÐºÐ¾Ñ‚Ð¾Ñ€ÑƒÑŽ Ð¾Ð½Ð° Ð±ÑƒÐ´ÐµÑ‚ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÑÑ‚ÑŒ
+    Button(char* myText)
     {
+        text = myText;
         text_color = {0,0,0};
         font = TTF_OpenFont( "res/CharisSILR.ttf", 22 );
         textsf = TTF_RenderUTF8_Solid(font, text, text_color);
     }
 
-    /// èíèöèàëèçàöèÿ êíîïêè ôóíêöèåé, êîòîðóþ îíà âûïîëíÿåò
+    /// Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ ÐºÐ½Ð¾Ð¿ÐºÐ¸ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÐµÐ¹, ÐºÐ¾Ñ‚Ð¾Ñ€ÑƒÑŽ Ð¾Ð½Ð° Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÑÐµÑ‚
     Button( void (*callback)(StateBasedGame* e, SDL_Event* g), char* myText )
     {
         text = myText;
@@ -49,46 +50,36 @@ public:
 
     void update(StateBasedGame* g, SDL_Event* e)
     {
-        //If mouse event happened
         if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
         {
-            //Get mouse position
             int x, y;
             SDL_GetMouseState( &x, &y );
 
-            //Check if mouse is in button
             bool inside = true;
 
-            //Mouse is left of the button
             if( x < bounds.x )
             {
                 inside = false;
             }
-            //Mouse is right of the button
             else if( x > bounds.x + bounds.w )
             {
                 inside = false;
             }
-            //Mouse above the button
             else if( y < bounds.y )
             {
                 inside = false;
             }
-            //Mouse below the button
             else if( y > bounds.y + bounds.h )
             {
                 inside = false;
             }
 
-            //Mouse is outside button
             if( !inside )
             {
                 color = backup_color;
             }
-            //Mouse is inside button
             else
             {
-                //Set mouse over sprite
                 switch( e->type )
                 {
                     case SDL_MOUSEMOTION:

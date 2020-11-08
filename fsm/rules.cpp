@@ -10,10 +10,13 @@
 
 using namespace std;
 
+#ifndef BACK_BUTTON_CALLBACK
+#define BACK_BUTTON_CALLBACK
 static void backButtonOnClick(StateBasedGame* g , SDL_Event* e)
 {
     g->switchState(states::main_menu);
 }
+#endif // BACK_BUTTON_CALLBACK
 
 class Rules : public GameState
 {
@@ -26,11 +29,11 @@ public:
     void init( SDL_Surface* display, StateBasedGame* g )
     {
         screen = display;
-        back_button = new Button(backButtonOnClick, "Back");
+        back_button = new Button(backButtonOnClick, "Назад");
         back_button->bounds.x = (display->w - back_button->bounds.w)/2;
         back_button->bounds.y = display->h - back_button->bounds.h - 50;
 
-        text = new Label(" Ненавижу, блять, SDL ");
+        text = new Label(" У вас 10 торпед. Сбивайте ими вражеские корабли.");
         text->bounds.w = 300;
         text->bounds.x = (screen->w - text->bounds.w)/2;
         text->bounds.y = screen->h/2;

@@ -7,9 +7,12 @@
 #include <SDL_ttf.h>
 #include "../ui/button.h"
 #include "../ui/label.h"
+#include "../sessions.h"
 #include "../ui/text_field.h"
 
 using namespace std;
+
+    static void loginOnClick(StateBasedGame* g , SDL_Event* e);
 
 class Login : public GameState
 {
@@ -17,18 +20,17 @@ class Login : public GameState
     SDL_Surface* screen;
     Button* back_button;
     Label* text;
-    TextField tf;
-
-
 public:
+    static TextField tf;
+
     void init( SDL_Surface* display, StateBasedGame* g )
     {
         screen = display;
-        back_button = new Button(backButtonOnClick, "Продолжить");
+        back_button = new Button(loginOnClick, "Продолжить");
         back_button->bounds.x = (display->w - back_button->bounds.w)/2;
         back_button->bounds.y = display->h - back_button->bounds.h - 50;
 
-        text = new Label("Введите текст:");
+        text = new Label("Введите имя:");
         text->bounds.w = 300;
         text->bounds.x = (screen->w - text->bounds.w)/2;
         text->bounds.y = screen->h/2-50;
@@ -70,6 +72,17 @@ public:
         delete text;
     }
 };
+
+#ifndef LOGIN_ON_CLICK
+#define LOGIN_ON_CLICK
+    static void loginOnClick(StateBasedGame* g , SDL_Event* e)
+    {
+        Player* player = new Player((Login::tf).text);
+        current_session.players.push_back(player);
+        current_session.current_player = player;
+        g->switchState(states::main_menu);
+    }
+#endif // LOGIN_ON_CLICK
 
 #endif // LOGIN
 

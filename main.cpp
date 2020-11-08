@@ -13,6 +13,7 @@
 #include "fsm/rules.cpp"
 #include "fsm/greetings.cpp"
 #include "fsm/login.cpp"
+#include "fsm/highscores.cpp"
 #include "utils.h"
 #include "fsm/states.h"
 
@@ -23,7 +24,7 @@
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
 
-//#define DEBUG 1
+#define DEBUG 1
 
 using namespace std;
 
@@ -86,16 +87,18 @@ int main(int argc, char* argv[])
 
     //Game state
     Game* gamestate = new Game();
+    Highscores* highscoresState = new Highscores();
     MainMenu* mainMenuState = new MainMenu();
     Rules* rulesState = new Rules();
     Greetings* greetingsState = new Greetings();
     Login* loginState = new Login();
     game.registerState( states::greetings, screen, greetingsState );
+    game.registerState( states::highscores, screen, highscoresState );
     game.registerState( states::main_menu, screen, mainMenuState );
     game.registerState( states::rules, screen, rulesState );
     game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
     game.registerState( states::login, screen, loginState );
-    game.switchState( states::greetings );
+    game.switchState( states::login );
 
     while ( running ){
         fps_counter.start();
