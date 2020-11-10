@@ -15,14 +15,16 @@ class Button : public AbstractUIElement
 {
 SDL_Color color = { 255, 255, 255 };
 SDL_Color backup_color = color;
+void* caller;
 
 
 public:
-    void (*onClick)(StateBasedGame*, SDL_Event*, GameState* );  // функция-обработчик клика
+    void (*onClick)(StateBasedGame*, SDL_Event*, void* );  // функция-обработчик клика
 
     /// можно создать кнопку, не устанавливая функцию, которую она будет выполнять
-    Button(char* myText)
+    Button(char* myText, void* caller=0)
     {
+        this->caller = caller;
         text = myText;
         text_color = {0,0,0};
         font = TTF_OpenFont( "res/CharisSILR.ttf", 22 );
@@ -30,10 +32,11 @@ public:
     }
 
     /// инициализация кнопки функцией, которую она выполняет
-    Button( void (*callback)(StateBasedGame* e, SDL_Event* g, GameState* caller), char* myText )
+    Button( void (*callback)(StateBasedGame* e, SDL_Event* g, void*), char* myText, void* caller = 0)
     {
         text = myText;
         onClick = callback;
+        this->caller = caller;
         text_color = {0,0,0};
         font = TTF_OpenFont( "res/CharisSILR.ttf", 22 );
         textsf = TTF_RenderUTF8_Solid(font, text, text_color);
@@ -49,7 +52,7 @@ public:
         }
     }
 
-    void update(StateBasedGame* g, SDL_Event* e, GameState* owner)
+    void update(StateBasedGame* g, SDL_Event* e)
     {
         if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
         {
@@ -89,11 +92,11 @@ public:
 
                     case SDL_MOUSEBUTTONDOWN:
                          color = CLICK_COLOR;
-                         onClick(g, e, owner);
+                         onClick(g, e, caller);
                     break;
                     case SDL_MOUSEBUTTONUP:
                          color = CLICK_COLOR;
-                         onClick(g, e, owner);
+                         onClick(g, e, caller);
                     break;
                 }
             }
@@ -105,7 +108,7 @@ public:
         backup_color = new_color;
     }
 
-    void setCallback (void (*callback)(StateBasedGame* e, SDL_Event* g, GameState* caller))
+    void setCallback (void (*callback)(StateBasedGame* e, SDL_Event* g, void*))
     {
         this->onClick = callback;
     }

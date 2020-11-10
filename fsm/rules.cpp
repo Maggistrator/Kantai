@@ -12,7 +12,7 @@ using namespace std;
 
 #ifndef BACK_BUTTON_CALLBACK
 #define BACK_BUTTON_CALLBACK
-static void backButtonOnClick(StateBasedGame* g , SDL_Event* e, GameState* owner)
+static void backButtonOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
 {
     g->switchState(states::main_menu);
 }
@@ -44,7 +44,7 @@ public:
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
         }
-        back_button->update(g, &event, this);
+        back_button->update(g, &event);
     }
 
     void render( SDL_Surface* display )

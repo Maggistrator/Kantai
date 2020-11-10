@@ -19,9 +19,12 @@
 
 using namespace std;
 
+static void saveHighScore(StateBasedGame*, SDL_Event*, void*);
+
 class Highscores : public GameState
 {
 
+public:
     class Record
     {
         Label *playerNameLabel, *points;
@@ -50,7 +53,10 @@ class Highscores : public GameState
 
             if(save)
             {
-                save_button = new Button("Сохранить");
+                save_button = new Button(saveHighScore, "Сохранить", this);
+                save_button->bounds.w = 120;
+                save_button->bounds.h = 15;
+                save_button->setFont("res/CharisSILR.ttf", 12);
                 save_button->alignment = Button::CENTER;
             }
             screen = s;
@@ -71,7 +77,7 @@ class Highscores : public GameState
 
         void update(StateBasedGame* g, SDL_Event* e)
         {
-            if(save) save_button->update(g, e, owner);
+            if(save) save_button->update(g, e);
         }
 
         void setX(int x)
@@ -110,21 +116,23 @@ class Highscores : public GameState
             }
         }
     };
-
+private:
     SDL_Event event;
     SDL_Surface* screen;
 
-    Label* title, *subtitle1, *subtitle2;
+    Label* title, *subtitle1, *subtitle2, *subtitle3, *subtitle4;
 
     list<Record*> currentSessionList, bestHighscoresList;
-
 public:
+
     void init( SDL_Surface* display, StateBasedGame* g )
     {
         screen = display;
         title = new Label("РЕКОРДЫ");
         subtitle1 = new Label("За текущую сессию:");
         subtitle2 = new Label("За все время:");
+        subtitle3 = new Label("Имя:");
+        subtitle4 = new Label("Очков:");
 
         title->alignment = Label::Align::CENTER;
 
@@ -142,6 +150,13 @@ public:
         subtitle2->bounds.y = title->bounds.y + OFFSET*2;
         subtitle2->bounds.x = LEFT_BORDER;
         alignToCenterY(subtitle2);
+
+        subtitle3->bounds.y = title->bounds.y + OFFSET*2;
+        subtitle3->bounds.x = LEFT_BORDER;
+
+        subtitle4->bounds.w = 300;
+        subtitle4->bounds.y = title->bounds.y + OFFSET*2;
+        alignToCenterX(subtitle4);
     }
 
     void enter(StateBasedGame* g)
@@ -179,6 +194,8 @@ public:
         title->render(display);
         subtitle1->render(display);
         subtitle2->render(display);
+        subtitle3->render(display);
+        subtitle4->render(display);
         for(Record* rec: currentSessionList) rec->render(display);
         for(Record* rec: bestHighscoresList) rec->render(display);
     }
@@ -207,10 +224,18 @@ public:
         delete title;
         delete subtitle1;
         delete subtitle2;
+        delete subtitle3;
+        delete subtitle4;
         for(Record* rec: currentSessionList) delete rec;
         for(Record* rec: bestHighscoresList) delete rec;
     }
 };
+
+static void saveHighScore(StateBasedGame* g, SDL_Event* e, void* caller)
+{
+    Highscores::Record* record = reinterpret_cast < Highscores::Record* >(caller);
+
+}
 
 #endif // HIGHSCORES
 

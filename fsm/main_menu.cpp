@@ -17,27 +17,27 @@
 
 using namespace std;
 
-    static void gameOnClick(StateBasedGame* g , SDL_Event* e, GameState* owner)
+    static void gameOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
     {
         g->switchState(states::game);
     }
 
-    static void profilesOnClick(StateBasedGame* g , SDL_Event* e, GameState* owner)
+    static void profilesOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
     {
         g->switchState(states::game);
     }
 
-    static void highsOnClick(StateBasedGame* g , SDL_Event* e, GameState* owner)
+    static void highsOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
     {
         g->switchState(states::highscores);
     }
 
-    static void rulesOnClick(StateBasedGame* g , SDL_Event* e, GameState* owner)
+    static void rulesOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
     {
         g->switchState(states::rules);
     }
 
-    static void exitOnClick(StateBasedGame* g , SDL_Event* e, GameState* owner)
+    static void exitOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
     {
         g->exit();
     }
@@ -69,7 +69,7 @@ public:
     {
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
-            for(int i = 0; i < 5; i++) buttons[i]->update(g, &event, this);
+            for(int i = 0; i < 5; i++) buttons[i]->update(g, &event);
         }
     }
 
