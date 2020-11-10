@@ -11,11 +11,15 @@ class StateBasedGame;
 
 class GameState {
     public:
+    virtual void enter( StateBasedGame* g ) {/*...*/}
+
     virtual void init( SDL_Surface* display, StateBasedGame* g ) = 0;
 
     virtual void update( StateBasedGame* g, int delta ) = 0;
 
     virtual void render( SDL_Surface* display ) = 0;
+
+    virtual void leave ( ) {/*...*/}
 
     virtual SDL_Surface* getScreen( void ) = 0;
 
@@ -65,6 +69,8 @@ public:
     {
         for(GameStateIndexer* in : states_list) {
             if(in->id == id){
+                if(currentState != nullptr) currentState->state->leave();
+                in->state->enter(this);
                 currentState = in;
                 return;
             }

@@ -16,8 +16,9 @@ class Button : public AbstractUIElement
 SDL_Color color = { 255, 255, 255 };
 SDL_Color backup_color = color;
 
+
 public:
-    void (*onClick)(StateBasedGame*, SDL_Event*);  // функция-обработчик клика
+    void (*onClick)(StateBasedGame*, SDL_Event*, GameState* );  // функция-обработчик клика
 
     /// можно создать кнопку, не устанавливая функцию, которую она будет выполнять
     Button(char* myText)
@@ -29,7 +30,7 @@ public:
     }
 
     /// инициализация кнопки функцией, которую она выполняет
-    Button( void (*callback)(StateBasedGame* e, SDL_Event* g), char* myText )
+    Button( void (*callback)(StateBasedGame* e, SDL_Event* g, GameState* caller), char* myText )
     {
         text = myText;
         onClick = callback;
@@ -48,7 +49,7 @@ public:
         }
     }
 
-    void update(StateBasedGame* g, SDL_Event* e)
+    void update(StateBasedGame* g, SDL_Event* e, GameState* owner)
     {
         if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
         {
@@ -88,11 +89,11 @@ public:
 
                     case SDL_MOUSEBUTTONDOWN:
                          color = CLICK_COLOR;
-                         onClick(g, e);
+                         onClick(g, e, owner);
                     break;
                     case SDL_MOUSEBUTTONUP:
                          color = CLICK_COLOR;
-                         onClick(g, e);
+                         onClick(g, e, owner);
                     break;
                 }
             }
@@ -104,7 +105,7 @@ public:
         backup_color = new_color;
     }
 
-    void setCallback (void (*callback)(StateBasedGame* e, SDL_Event* g))
+    void setCallback (void (*callback)(StateBasedGame* e, SDL_Event* g, GameState* caller))
     {
         this->onClick = callback;
     }

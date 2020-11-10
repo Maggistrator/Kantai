@@ -12,20 +12,23 @@
 
 using namespace std;
 
-    static void loginOnClick(StateBasedGame* g , SDL_Event* e);
+
+
+    static void loginOnClick(StateBasedGame*  , SDL_Event* , GameState* );
 
 class Login : public GameState
 {
     SDL_Event event;
     SDL_Surface* screen;
     Button* back_button;
-    Label* text;
 public:
-    static TextField tf;
+    TextField tf;
+    Label* text;
 
-    void init( SDL_Surface* display, StateBasedGame* g )
+    void init( SDL_Surface* display, StateBasedGame* g)
     {
         screen = display;
+
         back_button = new Button(loginOnClick, "Продолжить");
         back_button->bounds.x = (display->w - back_button->bounds.w)/2;
         back_button->bounds.y = display->h - back_button->bounds.h - 50;
@@ -46,7 +49,7 @@ public:
             if(event.type == SDL_QUIT) g->exit();
             tf.update(event);
         }
-        back_button->update(g, &event);
+        back_button->update(g, &event, this);
     }
 
     void render( SDL_Surface* display )
@@ -75,9 +78,13 @@ public:
 
 #ifndef LOGIN_ON_CLICK
 #define LOGIN_ON_CLICK
-    static void loginOnClick(StateBasedGame* g , SDL_Event* e)
+//        void onClick(StateBasedGame* g , SDL_Event* e, GameState* caller) override {
+//                cout << "text is: " << ((Login)caller)->tf.text  << " game is " << g << " event is " << e << endl;
+//            }
+
+    static void loginOnClick(StateBasedGame* g , SDL_Event* e, GameState* caller)
     {
-        Player* player = new Player((Login::tf).text);
+        Player* player = new Player(((reinterpret_cast < Login* >(caller))->tf).text);
         current_session.players.push_back(player);
         current_session.current_player = player;
         g->switchState(states::main_menu);

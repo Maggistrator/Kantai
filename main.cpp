@@ -24,7 +24,7 @@
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
 
-#define DEBUG 1
+//#define DEBUG 1
 
 using namespace std;
 

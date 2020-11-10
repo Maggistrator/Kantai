@@ -12,6 +12,7 @@
 #include "FiniteStateMachine.h"
 #include "../engine/engine.cpp"
 #include "../utils.h"
+#include "../sessions.h"
 #include "finish_game.cpp"
 #include "states.h"
 //--------RESOURCES----------------//
@@ -21,28 +22,26 @@ using namespace std;
 
 class Game : public GameState
 {
-    //-----служебные поля-------//
     SDL_Event event;
     SDL_Surface* display;
     SDL_Surface* background;
     Engine entityManager;
     friend class Statistics;
-    //метка очков--------------//
+
     SDL_Surface* textSurface;
     char* pointsLabel;
     TTF_Font *font = NULL;
     SDL_Color textColor = { 255, 255, 255 };
     SDL_Rect textPlaceholder = { 0, 50, 200, 50 };
 
-    //----игровые поля---------//
     struct levelData {
-        int level = 1;                  // текущий уровень
-        int points = 0;                 // очки
-        int torpedosSpawned = 0;        // количество выпущенных торпед
-        int killed = 0;                 // количество убитых противников
+        int level = 1;
+        int points = 0;
+        int torpedosSpawned = 0;
+        int killed = 0;
     } ld;
-    int spawnCooldown = 120;        // задержка спауна противников
-    int spawnCounter = 0;           // таймер спауна противников
+    int spawnCooldown = 120;
+    int spawnCounter = 0;
     Entity* player = nullptr;
 
     int next_level_cooldown = 60;
@@ -50,11 +49,7 @@ class Game : public GameState
         srand (time(NULL));
         this->display = display;
         background = loadOptimisedSurface( BACKGROUND_FILE_PATH, display );
-        if( background == NULL )
-            cerr << "Не удалось загрузить SDL_image! Причина: " << IMG_GetError() << endl;
         font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
-        if( font == NULL )
-            cerr << "Не удалось загрузить шрифт CharisSILR! Причина: " << TTF_GetError() << endl;
         pointsLabel = new char[13];
         player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
@@ -75,24 +70,19 @@ class Game : public GameState
         ControllableSubsystem* ss = (ControllableSubsystem*)player->getSubsystem(controllable);
         ld.torpedosSpawned = ss->torpedosSpawned;
         if(ld.torpedosSpawned > 10) nextLevel( g );
-        // если выпущено более 10 торпед, для завершения игры остается только дождаться, когда взорвется последняя торпеда
         if(ld.torpedosSpawned >= 10)
             if(next_level_cooldown <= 0) nextLevel( g );
             else next_level_cooldown--;
     }
 
     void render( SDL_Surface* display ) {
-        //отрисовка фона
         SDL_BlitSurface( background, NULL, display, NULL );
-        //отрисовка сущностей
         entityManager.render( display );
-        //отрисовка метки очков
         sprintf(pointsLabel, "%s%d", "Points: ", ld.points);
         textSurface = TTF_RenderText_Solid( font, pointsLabel, textColor );
         SDL_BlitSurface( textSurface, nullptr, display, &textPlaceholder );
     }
 
-    //Метод генерации противников. зависит от уровня.
     void spawnEnemies(StateBasedGame* g){
         if(spawnCounter > 0)spawnCounter--;
         if(rand() % 2 == 0 && spawnCounter <= 0 && next_level_cooldown == 60) {
@@ -130,7 +120,13 @@ class Game : public GameState
     void nextLevel( StateBasedGame* g ){
         if(ld.killed == 10) ld.level++;
 
-        cout << ld.killed << endl;
+        current_session.current_player->scores.push_back(ld.points);
+
+        for(int highscore: current_session.current_player->scores)
+        {
+            cout << "player: " << current_session.current_player->name << " points " << highscore << endl;
+        }
+
         Statistics* s = new Statistics(ld.killed, ld.points);
         g->registerState( results, getScreen(), s );
         g->switchState ( results );
