@@ -16,6 +16,7 @@
 #include "fsm/highscores.cpp"
 #include "utils.h"
 #include "fsm/states.h"
+#include "sessions.h"
 
 //PREPROCESSOR DEFINES--------
 #define SCREEN_WIDTH 800
@@ -24,7 +25,7 @@
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
 
-//#define DEBUG 1
+#define DEBUG 1
 
 using namespace std;
 
@@ -99,6 +100,10 @@ int main(int argc, char* argv[])
     game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
     game.registerState( states::login, screen, loginState );
     game.switchState( states::login );
+
+    //необходимо, для корректного обновления рекордов в том случае, если игрок в этом сеансе
+    //таблицу рекордов не посетит
+    current_session.loadOverallHighscores();
 
     while ( running ){
         fps_counter.start();

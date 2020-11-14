@@ -1,48 +1,73 @@
-#include <vector>
-#include <fstream>
-#include <bits/stdc++.h>
-
 #ifndef SESSIONS
 #define SESSIONS
+
+#include <fstream>
+
+#define MAX_RECORDS 10
+
 /* single game result */
 struct Record
 {
+    Record( char* m_name, int m_score ) : name(m_name), score(m_score) {}
+
 	char* name;
 	int score;
 
-	~Record() { delete name; }
 };
 
 static struct Session
 {
+private:
+    int items = 0, overall_items = 0;
+public:
     char* current_player;
-	std::vector<Record*> records;
-	std::vector<Record*> overall_records;
+	Record* highscores[MAX_RECORDS];
+	Record* overall_highscores[MAX_RECORDS];
 
 	void addRecord( char* name, int m_score )
 	{
-        Record* rec = new Record();
-        rec->name = current_player;
-        rec->score = m_score;
-        records.push_back(rec);
-        sort(records.begin(), records.end(), [](Record * f, Record * s) { return f->score < s->score; });
-//        for(Record* r: records){
-//            cout << r->score << "\t";
-//        } cout << endl;
+        if(items != MAX_RECORDS) {
+            if(highscores[items] != nullptr) delete highscores[items];
+            highscores[items] = new Record(name, m_score);
+            items++;
+        } else {
+            items = 0;
+            addRecord(name, m_score);
+        }
 	}
 
-//	void sort(vector<Record*>& col)
-//	{
-//	    vector<Record*> temp;
-//        for(int i = 0; i < col.size(); i++){
-//            int i
-//            Record* minimal;
-//            for(int j = 0; j < col.size(); j++){
-//                Record* a = overall_records.at(i);
-//                Record* b = overall_records.at(j);
-//            }
-//        }
-//	}
+    void sort(Record ** arr, int size)
+    {
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size - 1; j++) {
+                Record* a = arr[j];
+                Record* b = arr[j + 1];
+                if(a->score > b->score) {
+                    Record* temp = a;
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+    }
+
+
+    void updateOverallHighscores () {
+        Record* merge_array[MAX_RECORDS * 2];
+        for(int i = 0; i < (MAX_RECORDS * 2); i++) {
+            merge_array[i] = highscores[i];
+            merge_array[MAX_RECORDS + i] = overall_highscores[i];
+            cout << "merged highscore #" << i << " is " << merge_array[i] << endl;
+        }
+        cout << "---------------------"<< endl;
+        sort(merge_array, MAX_RECORDS * 2);
+        for(int i = 0; i < MAX_RECORDS; i++) {
+            overall_highscores[i] = highscores[i];
+            cout << "highscore #" << i << " is " << highscores[i] << endl;
+            cout << "overall highscore #" << i << " is " << overall_highscores[i] << endl;
+            if(overall_highscores[i] != nullptr) overall_items++;
+        }
+    }
 
 	 bool loadOverallHighscores()
         {
@@ -82,11 +107,13 @@ static struct Session
         bool writeOverallHighscores( )
         {
             ofstream ofs1("res/save.dat", ios::binary | ios::out);
+            cout << "opening file is " << (ofs1 ? "succsessful" : "unsuccsessful") << endl;
             try
             {
-                int list_size = records.size();
+                int list_size = overall_items;
+                cout << "list size is " << list_size << endl;
                 ofs1.write((char *)&list_size, sizeof(int));
-                for(Record* rec: records){
+                for(Record* rec: highscores){
                     int player_name_lenght = strlen(rec->name);
                     ofs1.write((char *)&player_name_lenght, sizeof(int));
                     ofs1.write(rec->name, sizeof(char)*(player_name_lenght+1));
@@ -101,29 +128,11 @@ static struct Session
             }
         }
 
-//        ~Session()
-//        {
-//            for(Record* rec: records) delete rec;
-//        }
+        ~Session()
+        {
+            for(Record* rec: highscores) delete rec;
+            for(Record* rec: overall_highscores) delete rec;
+        }
 } current_session;
-
-
-//class Player
-//{
-//    public:
-//    char* name;                 // Имя игрока, вводится единожды и не изменяется
-//
-//    list<int> scores;           // Очки за все проведенные за сессию игры
-//    Player(char* name)
-//    {
-//        this->name = name;
-//    }
-//};
-//
-//static struct Session
-//{
-//    list<Player*> players;
-//    Player* current_player;
-//} current_session;
 
 #endif // SESSIONS

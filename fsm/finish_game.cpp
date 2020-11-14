@@ -41,22 +41,23 @@ class Statistics : public GameState
         noticePlaceholder.y = display->h - 50;
     }
 
-    int cooldown = 100;
+    int cooldown = 15;
     void update( StateBasedGame* g, int delta )
     {
-        //if(cooldown <=0){
+        if(cooldown <=0){
         if(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) g->exit();
             else {
                 if((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN))
                 {
                     g->switchState( game );
+                    cooldown = 15;
                 }
                 else if((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                     g->switchState(states::main_menu);
             }
         }
-        //}else cooldown--;
+        }else cooldown--;
     }
 
     void render( SDL_Surface* display )

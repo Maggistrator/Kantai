@@ -134,52 +134,28 @@ public:
 
     void enter(StateBasedGame* g)
     {
-//        int current_session_reccount = 0, overall_records_count = 0;
-//        vector<RecordUI*> tempHighscoresList;
-//
-//        for(Record* record: current_session.records) {
-//            current_session_reccount++;
-//            RecordUI* ui = new RecordUI(record, getScreen());
-//            ui->setX(LEFT_BORDER);
-//            ui->setY(65 + (OFFSET/2) * current_session_reccount);
-//            currentSessionList.push_back(ui);
-//            tempHighscoresList.push_back(ui);
-//        } current_session_reccount = overall_records_count;
+        int current_session_reccount = 0, overall_records_count = 0;
 
-//        while (overall_records_count - current_session_reccount < 10) {
-//            RecordUI* ui = new RecordUI(getScreen());
-//            if(ui->read()) {
-//                overall_records_count++;
-////                ui->setX(LEFT_BORDER);
-////                ui->setY(95 + (OFFSET/2) * overall_records_count);
-//                tempHighscoresList.push_back(ui);
-//            } else {
-//                delete ui;
-//                break;
-//            }
-//        }
-//
-//        for(int i = 0, maxpoints_index; i < tempHighscoresList.size()-1 && i < 10; i++) {
-//            RecordUI* max_points;
-//            for(int j = 0; j < tempHighscoresList.size(); j++) {
-//                if(i == j) continue;
-//                RecordUI* temp1 = tempHighscoresList.at(i);
-//                RecordUI* temp2 = tempHighscoresList.at(j);
-//                if(temp1->scores > temp2->scores) {
-//                    max_points = temp1;
-//                    maxpoints_index = i;
-//                } else
-//                {
-//                    max_points = temp2;
-//                    maxpoints_index = j;
-//                }
-//            }
-//
-//            max_points->setX(LEFT_BORDER);
-//            max_points->setY(115 + (OFFSET/2) * overall_records_count);
-//            bestHighscoresList.push_back(max_points);
-//            tempHighscoresList.erase(tempHighscoresList.begin()+maxpoints_index);
-//        }
+        for(Record* record: current_session.highscores) {
+            if(record != nullptr) {
+                current_session_reccount++;
+                RecordUI* ui = new RecordUI(record, getScreen());
+                ui->setX(LEFT_BORDER);
+                ui->setY(65 + (OFFSET/2) * current_session_reccount);
+                currentSessionList.push_back(ui);
+            }
+        }
+
+        current_session.loadOverallHighscores();
+        for(Record* record: current_session.overall_highscores) {
+            if(record != nullptr) {
+                current_session_reccount++;
+                RecordUI* ui = new RecordUI(record, getScreen());
+                ui->setX(LEFT_BORDER);
+                ui->setY(95 + (OFFSET/2) * current_session_reccount);
+                currentSessionList.push_back(ui);
+            }
+        }
     }
 
     void update( StateBasedGame* g, int delta )
@@ -204,6 +180,7 @@ public:
 
     void leave()
     {
+
         for(RecordUI* ui: currentSessionList) delete ui;
         for(RecordUI* ui: bestHighscoresList) delete ui;
 

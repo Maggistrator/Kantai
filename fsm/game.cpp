@@ -54,6 +54,12 @@ class Game : public GameState
         player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
     }
+//
+//    void enter(GameState* g)
+//    {
+//        //для корректной записи
+//        current_session.loadOverallHighscores();
+//    }
 
     void update( StateBasedGame* g, int delta ) {
         if(SDL_PollEvent(&event)) {
@@ -115,6 +121,8 @@ class Game : public GameState
 
         player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
+
+        render(display);
     }
 
     void nextLevel( StateBasedGame* g ){
@@ -125,6 +133,17 @@ class Game : public GameState
         g->switchState ( results );
 
         current_session.addRecord(current_session.current_player, ld.points);
+
+        current_session.updateOverallHighscores();
+        bool succsess = current_session.writeOverallHighscores();
+
+        #ifdef DEBUG
+        for(Record* rec: current_session.overall_highscores)
+            if(rec != nullptr) cout << "writing player :" << rec->name << " with score: " << rec->score << endl;
+        cout << "write is " << (succsess ? "succsessfull" : "unsuccsesfull") << endl;
+        #endif // DEBUGS
+
+
 
         clearLevel( g );
     }
