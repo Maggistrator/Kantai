@@ -120,16 +120,11 @@ class Game : public GameState
     void nextLevel( StateBasedGame* g ){
         if(ld.killed == 10) ld.level++;
 
-        current_session.current_player->scores.push_back(ld.points);
-
-        for(int highscore: current_session.current_player->scores)
-        {
-            cout << "player: " << current_session.current_player->name << " points " << highscore << endl;
-        }
-
         Statistics* s = new Statistics(ld.killed, ld.points);
         g->registerState( results, getScreen(), s );
         g->switchState ( results );
+
+        current_session.addRecord(current_session.current_player, ld.points);
 
         clearLevel( g );
     }

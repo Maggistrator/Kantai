@@ -78,9 +78,7 @@ public:
 
 static void loginOnClick(StateBasedGame* g, SDL_Event* e, void* caller)
 {
-    Player* player = new Player(((reinterpret_cast < Login* >(caller))->tf).text);
-    current_session.players.push_back(player);
-    current_session.current_player = player;
+    current_session.current_player = ((reinterpret_cast < Login* >(caller))->tf).text;
     g->switchState(states::main_menu);
 }
 

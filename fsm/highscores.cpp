@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <fstream>
+#include <vector>
+#include <string.h>
 
 #include "states.h"
 #include "FiniteStateMachine.h"
@@ -19,49 +22,30 @@
 
 using namespace std;
 
-static void saveHighScore(StateBasedGame*, SDL_Event*, void*);
-
 class Highscores : public GameState
 {
 
 public:
-    class Record
+    class RecordUI
     {
+        Record* record;
         Label *playerNameLabel, *points;
-        Button *save_button;
         int x = 0, y = 0;
-        GameState* owner;
-
-        bool save;
 
         SDL_Surface* screen;
 
     public:
-        char* playerName;
-        int scores;
 
-        Record (char* pn, int scores, SDL_Surface* s, GameState* owner, bool save)
+        RecordUI (Record* record, SDL_Surface* s)
         {
-            playerName = pn;
-            this->scores = scores;
+            this->record = record;
 
-            playerNameLabel = new Label(pn);
+            playerNameLabel = new Label(record->name);
 
             char* points_text = new char[10];
-            sprintf(points_text, "%d", scores);
+            sprintf(points_text, "%d", record->score);
             points = new Label(points_text);
-
-            if(save)
-            {
-                save_button = new Button(saveHighScore, "Сохранить", this);
-                save_button->bounds.w = 120;
-                save_button->bounds.h = 15;
-                save_button->setFont("res/CharisSILR.ttf", 12);
-                save_button->alignment = Button::CENTER;
-            }
             screen = s;
-            this->save = save;
-            this->owner = owner;
         }
 
         /** метка отрисовывается на любой поверхности, не только на экране;
@@ -71,21 +55,15 @@ public:
         {
             playerNameLabel->render(s);
             points->render(s);
-
-            if(save) save_button->render(s);
         }
 
-        void update(StateBasedGame* g, SDL_Event* e)
-        {
-            if(save) save_button->update(g, e);
-        }
+
 
         void setX(int x)
         {
             this->x = x;
             playerNameLabel->bounds.x = x;
             alignToCenterX(points);
-            if(save) save_button->bounds.x = screen->w - save_button->bounds.w - x;
         }
 
         void setY(int y)
@@ -93,7 +71,6 @@ public:
             this->y = y;
             playerNameLabel->bounds.y = y;
             points->bounds.y = y;
-            if(save) save_button->bounds.y = y;
         }
 
         int getX()
@@ -105,24 +82,20 @@ public:
             return y;
         }
 
-        ~Record()
+        ~RecordUI()
         {
             delete playerNameLabel;
             delete points;
-            if(save)
-            {
-                delete save_button->text;
-                delete save_button;
-            }
         }
     };
+
 private:
     SDL_Event event;
     SDL_Surface* screen;
 
     Label* title, *subtitle1, *subtitle2, *subtitle3, *subtitle4;
 
-    list<Record*> currentSessionList, bestHighscoresList;
+    vector<RecordUI*> currentSessionList, bestHighscoresList;
 public:
 
     void init( SDL_Surface* display, StateBasedGame* g )
@@ -161,19 +134,52 @@ public:
 
     void enter(StateBasedGame* g)
     {
-        int records = 0;
-        for(int highscore: current_session.current_player->scores)
-        {
-            records++;
-            Record* rec = new Record(current_session.current_player->name, highscore, getScreen(), this, true);
-            rec->setX(LEFT_BORDER);
-            rec->setY(65 + (OFFSET/2) * records);
-            currentSessionList.push_back(rec);
-            cout << "record: " << rec << endl;
-        }
-        /* TODO:
-         * Написать такой же двойной цикл на сохраненные рекорды
-        */
+//        int current_session_reccount = 0, overall_records_count = 0;
+//        vector<RecordUI*> tempHighscoresList;
+//
+//        for(Record* record: current_session.records) {
+//            current_session_reccount++;
+//            RecordUI* ui = new RecordUI(record, getScreen());
+//            ui->setX(LEFT_BORDER);
+//            ui->setY(65 + (OFFSET/2) * current_session_reccount);
+//            currentSessionList.push_back(ui);
+//            tempHighscoresList.push_back(ui);
+//        } current_session_reccount = overall_records_count;
+
+//        while (overall_records_count - current_session_reccount < 10) {
+//            RecordUI* ui = new RecordUI(getScreen());
+//            if(ui->read()) {
+//                overall_records_count++;
+////                ui->setX(LEFT_BORDER);
+////                ui->setY(95 + (OFFSET/2) * overall_records_count);
+//                tempHighscoresList.push_back(ui);
+//            } else {
+//                delete ui;
+//                break;
+//            }
+//        }
+//
+//        for(int i = 0, maxpoints_index; i < tempHighscoresList.size()-1 && i < 10; i++) {
+//            RecordUI* max_points;
+//            for(int j = 0; j < tempHighscoresList.size(); j++) {
+//                if(i == j) continue;
+//                RecordUI* temp1 = tempHighscoresList.at(i);
+//                RecordUI* temp2 = tempHighscoresList.at(j);
+//                if(temp1->scores > temp2->scores) {
+//                    max_points = temp1;
+//                    maxpoints_index = i;
+//                } else
+//                {
+//                    max_points = temp2;
+//                    maxpoints_index = j;
+//                }
+//            }
+//
+//            max_points->setX(LEFT_BORDER);
+//            max_points->setY(115 + (OFFSET/2) * overall_records_count);
+//            bestHighscoresList.push_back(max_points);
+//            tempHighscoresList.erase(tempHighscoresList.begin()+maxpoints_index);
+//        }
     }
 
     void update( StateBasedGame* g, int delta )
@@ -183,10 +189,6 @@ public:
             else if((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 g->switchState(states::main_menu);
         }
-
-
-        for(Record* rec: currentSessionList) rec->update(g, &event);
-        for(Record* rec: bestHighscoresList) rec->update(g, &event);
     }
 
     void render( SDL_Surface* display )
@@ -196,14 +198,14 @@ public:
         subtitle2->render(display);
         subtitle3->render(display);
         subtitle4->render(display);
-        for(Record* rec: currentSessionList) rec->render(display);
-        for(Record* rec: bestHighscoresList) rec->render(display);
+        for(RecordUI* ui: currentSessionList) ui->render(display);
+        for(RecordUI* ui: bestHighscoresList) ui->render(display);
     }
 
     void leave()
     {
-        for(Record* rec: currentSessionList) delete rec;
-        for(Record* rec: bestHighscoresList) delete rec;
+        for(RecordUI* ui: currentSessionList) delete ui;
+        for(RecordUI* ui: bestHighscoresList) delete ui;
 
         currentSessionList.clear();
         bestHighscoresList.clear();
@@ -226,16 +228,10 @@ public:
         delete subtitle2;
         delete subtitle3;
         delete subtitle4;
-        for(Record* rec: currentSessionList) delete rec;
-        for(Record* rec: bestHighscoresList) delete rec;
+        for(RecordUI* ui: currentSessionList) delete ui;
+        for(RecordUI* ui: bestHighscoresList) delete ui;
     }
 };
-
-static void saveHighScore(StateBasedGame* g, SDL_Event* e, void* caller)
-{
-    Highscores::Record* record = reinterpret_cast < Highscores::Record* >(caller);
-
-}
 
 #endif // HIGHSCORES
 

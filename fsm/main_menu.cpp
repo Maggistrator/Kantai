@@ -24,7 +24,7 @@ using namespace std;
 
     static void profilesOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
     {
-        g->switchState(states::game);
+        g->switchState(states::login);
     }
 
     static void highsOnClick(StateBasedGame* g , SDL_Event* e, void* owner)
@@ -54,7 +54,7 @@ public:
     {
         screen = display;
         b_newgame = new Button(gameOnClick, "Новая игра");
-        b_profiles = new Button(profilesOnClick, "Профили");
+        b_profiles = new Button(profilesOnClick, "Сменить игрока");
         b_highs = new Button(highsOnClick, "Рекорды");
         b_rules = new Button(rulesOnClick, "Правила");
         b_exit = new Button(exitOnClick, "Выход");

@@ -241,7 +241,7 @@
 	<SDL.h>
 	<iostream>
 
-1604981306 source:c:\sdl\labs\kantai\fsm\game.cpp
+1605212292 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -282,7 +282,7 @@
 	<list>
 	<iostream>
 
-1604981306 c:\sdl\labs\kantai\fsm\game.cpp
+1605212292 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -373,7 +373,7 @@
 	<SDL.h>
 	<SDL_ttf.h>
 
-1604983298 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
+1605209644 source:c:\sdl\labs\kantai\fsm\main_menu.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -387,7 +387,7 @@
 	"../fsm/FiniteStateMachine.h"
 	"abstract_element.h"
 
-1604983298 c:\sdl\labs\kantai\fsm\main_menu.cpp
+1605209644 c:\sdl\labs\kantai\fsm\main_menu.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -442,7 +442,7 @@
 	<cstring>
 	"abstract_element.h"
 
-1604983464 c:\sdl\labs\kantai\fsm\login.cpp
+1605209432 c:\sdl\labs\kantai\fsm\login.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -452,7 +452,7 @@
 	"../sessions.h"
 	"../ui/text_field.h"
 
-1604983464 source:c:\sdl\labs\kantai\fsm\login.cpp
+1605209432 source:c:\sdl\labs\kantai\fsm\login.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -462,27 +462,36 @@
 	"../sessions.h"
 	"../ui/text_field.h"
 
-1604984767 source:c:\sdl\labs\kantai\fsm\highscores.cpp
+1605309789 source:c:\sdl\labs\kantai\fsm\highscores.cpp
 	<stdio.h>
 	<stdlib.h>
 	<SDL.h>
 	<SDL_ttf.h>
+	<fstream>
+	<vector>
+	<string.h>
 	"states.h"
 	"FiniteStateMachine.h"
 	"../ui/label.h"
 	"../ui/button.h"
 	"../sessions.h"
 
-1604985105 c:\sdl\labs\kantai\fsm\highscores.cpp
+1605309789 c:\sdl\labs\kantai\fsm\highscores.cpp
 	<stdio.h>
 	<stdlib.h>
 	<SDL.h>
 	<SDL_ttf.h>
+	<fstream>
+	<vector>
+	<string.h>
 	"states.h"
 	"FiniteStateMachine.h"
 	"../ui/label.h"
 	"../ui/button.h"
 	"../sessions.h"
 
-1604864314 c:\sdl\labs\kantai\sessions.h
+1605310134 c:\sdl\labs\kantai\sessions.h
+	<vector>
+	<fstream>
+	<bits/stdc++.h>
 
