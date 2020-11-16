@@ -134,9 +134,6 @@ class Game : public GameState
 
         current_session.addRecord(current_session.current_player, ld.points);
 
-        current_session.updateOverallHighscores();
-        bool succsess = current_session.writeOverallHighscores();
-
         #ifdef DEBUG
         for(Record* rec: current_session.overall_highscores)
             if(rec != nullptr) cout << "writing player :" << rec->name << " with score: " << rec->score << endl;

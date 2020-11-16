@@ -101,10 +101,6 @@ int main(int argc, char* argv[])
     game.registerState( states::login, screen, loginState );
     game.switchState( states::login );
 
-    //необходимо, для корректного обновления рекордов в том случае, если игрок в этом сеансе
-    //таблицу рекордов не посетит
-    current_session.loadOverallHighscores();
-
     while ( running ){
         fps_counter.start();
         dc.tick();

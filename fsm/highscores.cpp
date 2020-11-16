@@ -136,8 +136,10 @@ public:
     {
         int current_session_reccount = 0, overall_records_count = 0;
 
+        cout << "-------------- current elements ---------- " << endl;
         for(Record* record: current_session.highscores) {
             if(record != nullptr) {
+                cout << "curr elem " << record << endl;
                 current_session_reccount++;
                 RecordUI* ui = new RecordUI(record, getScreen());
                 ui->setX(LEFT_BORDER);
@@ -147,13 +149,15 @@ public:
         }
 
         current_session.loadOverallHighscores();
+        cout << "-------------- overall elements ---------- " << endl;
         for(Record* record: current_session.overall_highscores) {
             if(record != nullptr) {
-                current_session_reccount++;
+                cout << "overall elem " << record << endl;
+                overall_records_count++;
                 RecordUI* ui = new RecordUI(record, getScreen());
                 ui->setX(LEFT_BORDER);
-                ui->setY(95 + (OFFSET/2) * current_session_reccount);
-                currentSessionList.push_back(ui);
+                ui->setY(screen->h/2 - 15 + (OFFSET/2 * overall_records_count));
+                bestHighscoresList.push_back(ui);
             }
         }
     }
@@ -180,10 +184,16 @@ public:
 
     void leave()
     {
-
-        for(RecordUI* ui: currentSessionList) delete ui;
-        for(RecordUI* ui: bestHighscoresList) delete ui;
-
+//        for(int i = 0; i < currentSessionList.size(); i++) {
+//            delete currentSessionList.back();
+//            currentSessionList.pop_back();
+//        }
+//        for(int i = 0; i < bestHighscoresList.size(); i++) {
+//            delete bestHighscoresList.back();
+//            bestHighscoresList.pop_back();
+//        }
+////        for(RecordUI* ui: currentSessionList) delete ui;
+////        for(RecordUI* ui: bestHighscoresList) delete ui;
         currentSessionList.clear();
         bestHighscoresList.clear();
     }
