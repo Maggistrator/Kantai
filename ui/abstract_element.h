@@ -8,7 +8,7 @@ class AbstractUIElement {
 protected:
 /**
     Прямоугольник с целочисленными координатами и размерами
-    SDL_Rect зачем-то ограничен UInt16 в связи с чем практически неюзабелен с SDL_ttf
+    SDL_Rect использует UInt16 в связи с чем несовместим с возвращаемыми значениями SDL_ttf
 */
 struct int_Rect {
     int x, y, w, h;
@@ -32,9 +32,12 @@ public:
     void setFont(const char* path2font, int size)
     {
         TTF_CloseFont(font);
-        /*Это утечка памяти, но если я освобождаю поверхность, программа валится!*/
-        //SDL_FreeSurface(textsf);//
         font = TTF_OpenFont( path2font, size );
+        textsf = TTF_RenderUTF8_Blended( font, text, text_color );
+    }
+
+    void setTextColor(SDL_Color& c){
+        this->text_color = c;
         textsf = TTF_RenderUTF8_Blended( font, text, text_color );
     }
 

@@ -11,9 +11,6 @@
  * служебным, не переопределяется и не включается в другие
  * классы как донор функциональности или данных - это
  * самодостаточный модуль, требующий только вызовов.
- *
- *  Created on: 26 авг. 2020 г.
- *      Author: sova
  */
 
 #include <list>
@@ -40,7 +37,7 @@ public:
             #endif // DEBUG
             delete toDelete;
 	    }
-		for(Entity* e: entities) e->update(g, state, this, delta );//StateBasedGame* g, GameState* state, Engine* e, int delta
+		for(Entity* e: entities) e->update(g, state, this, delta );
 	}
 
 	void render(SDL_Surface* s)

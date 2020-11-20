@@ -12,7 +12,7 @@
 #define FRAMES_PER_SECOND 30
 
 using namespace std;
-    /// Вспомогательная функция загрузки PNG-изображений
+    /// Вспомогательная функция загрузки PNG-изображений с прозрачностью
     static SDL_Surface* loadOptimisedSurface( std::string path , SDL_Surface* gScreenSurface )
     {
         SDL_Surface* optimizedSurface = NULL;
@@ -20,7 +20,6 @@ using namespace std;
         if( loadedSurface == nullptr )
             printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
         else {
-            //Convert surface to screen format
             optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreenSurface->format, 0 );
             if( optimizedSurface == NULL )
             {
@@ -29,8 +28,7 @@ using namespace std;
                 Uint32 black = SDL_MapRGB( optimizedSurface->format , 0, 0, 0);
                 SDL_SetColorKey( optimizedSurface, SDL_SRCCOLORKEY | SDL_RLEACCEL , black );
             }
-            //Get rid of old loaded surface
-            SDL_FreeSurface( loadedSurface );
+             SDL_FreeSurface( loadedSurface );
         }
         return optimizedSurface;
     }
@@ -49,7 +47,6 @@ using namespace std;
     };
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 
 
 class Timer
@@ -66,7 +63,6 @@ class Timer
 
 Timer()
 {
-    //Initialize the variables
     startTicks = 0;
     pausedTicks = 0;
     paused = false;
@@ -75,73 +71,49 @@ Timer()
 
 void start()
 {
-    //Start the timer
     started = true;
-
-    //Unpause the timer
     paused = false;
-
-    //Get the current clock time
     startTicks = SDL_GetTicks();
 }
 
 void  stop()
 {
-    //Stop the timer
     started = false;
-
-    //Unpause the timer
     paused = false;
 }
 
 void  pause()
 {
-    //If the timer is running and isn't already paused
     if( ( started == true ) && ( paused == false ) )
     {
-        //Pause the timer
         paused = true;
-
-        //Calculate the paused ticks
         pausedTicks = SDL_GetTicks() - startTicks;
     }
 }
 
 void  unpause()
 {
-    //If the timer is paused
     if( paused == true )
     {
-        //Unpause the timer
         paused = false;
-
-        //Reset the starting ticks
         startTicks = SDL_GetTicks() - pausedTicks;
-
-        //Reset the paused ticks
         pausedTicks = 0;
     }
 }
 
 int  get_ticks()
 {
-    //If the timer is running
     if( started == true )
     {
-        //If the timer is paused
         if( paused == true )
         {
-            //Return the number of ticks when the timer was paused
             return pausedTicks;
         }
         else
         {
-            //Return the current time minus the start time
             return SDL_GetTicks() - startTicks;
         }
     }
-
-    //If the timer isn't running
     return 0;
 }
 

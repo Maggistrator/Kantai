@@ -34,6 +34,11 @@ public:
         }
     }
 
+    void setText(char * text)
+    {
+        this->text = text;
+        textsf = TTF_RenderUTF8_Blended( font, text, text_color );
+    }
 public:
     ~Label()
     {

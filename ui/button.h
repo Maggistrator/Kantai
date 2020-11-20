@@ -10,7 +10,6 @@
 #define ACTIVE_COLOR { 0, 255, 0 }
 #define CLICK_COLOR { 0, 0, 255 }
 
-///Класс кнопки. Обрабатывает клик, выполняет скормленную ему функцию реакции на него.
 class Button : public AbstractUIElement
 {
 SDL_Color color = { 255, 255, 255 };

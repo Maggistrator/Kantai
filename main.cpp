@@ -25,7 +25,7 @@
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
 
-#define DEBUG 1
+//#define DEBUG 1 //- раскомментировать, чтобы включить режим отладки
 
 using namespace std;
 
@@ -97,9 +97,9 @@ int main(int argc, char* argv[])
     game.registerState( states::highscores, screen, highscoresState );
     game.registerState( states::main_menu, screen, mainMenuState );
     game.registerState( states::rules, screen, rulesState );
-    game.registerState( states::game, screen, gamestate );//int id, SDL_Surface* display, GameState* state
+    game.registerState( states::game, screen, gamestate );
     game.registerState( states::login, screen, loginState );
-    game.switchState( states::login );
+    game.switchState( states::greetings );
 
     while ( running ){
         fps_counter.start();

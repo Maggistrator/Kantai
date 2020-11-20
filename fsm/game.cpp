@@ -15,6 +15,7 @@
 #include "../sessions.h"
 #include "finish_game.cpp"
 #include "states.h"
+#include "../ui/label.h"
 //--------RESOURCES----------------//
 #define BACKGROUND_FILE_PATH "res/sea.png"
 
@@ -29,8 +30,7 @@ class Game : public GameState
     friend class Statistics;
 
     SDL_Surface* textSurface;
-    char* pointsLabel;
-    TTF_Font *font = NULL;
+    Label* pointsLabel;
     SDL_Color textColor = { 255, 255, 255 };
     SDL_Rect textPlaceholder = { 0, 50, 200, 50 };
 
@@ -49,17 +49,12 @@ class Game : public GameState
         srand (time(NULL));
         this->display = display;
         background = loadOptimisedSurface( BACKGROUND_FILE_PATH, display );
-        font = TTF_OpenFont( "res/CharisSILR.ttf", 28 );
-        pointsLabel = new char[13];
+        pointsLabel = new Label("Points: 0");
+        pointsLabel->setFont("res/CharisSILR.ttf", 28 );
+        pointsLabel->bounds.y = 50;
         player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
     }
-//
-//    void enter(GameState* g)
-//    {
-//        //для корректной записи
-//        current_session.loadOverallHighscores();
-//    }
 
     void update( StateBasedGame* g, int delta ) {
         if(SDL_PollEvent(&event)) {
@@ -71,7 +66,7 @@ class Game : public GameState
         }
 
         spawnEnemies(g);
-        entityManager.update(g, this, delta);//StateBasedGame* g, GameState* state, int delta
+        entityManager.update(g, this, delta);
 
         ControllableSubsystem* ss = (ControllableSubsystem*)player->getSubsystem(controllable);
         ld.torpedosSpawned = ss->torpedosSpawned;
@@ -84,9 +79,11 @@ class Game : public GameState
     void render( SDL_Surface* display ) {
         SDL_BlitSurface( background, NULL, display, NULL );
         entityManager.render( display );
-        sprintf(pointsLabel, "%s%d", "Points: ", ld.points);
-        textSurface = TTF_RenderText_Solid( font, pointsLabel, textColor );
-        SDL_BlitSurface( textSurface, nullptr, display, &textPlaceholder );
+        char * newtext = new char[32];
+        sprintf(newtext, "%s%d", "Points: ", ld.points);
+        delete pointsLabel->text;
+        pointsLabel->setText(newtext);
+        pointsLabel->render(display);
     }
 
     void spawnEnemies(StateBasedGame* g){
@@ -140,8 +137,6 @@ class Game : public GameState
         cout << "write is " << (succsess ? "succsessfull" : "unsuccsesfull") << endl;
         #endif // DEBUGS
 
-
-
         clearLevel( g );
     }
 
@@ -155,7 +150,6 @@ class Game : public GameState
 
     ~Game(){
         delete pointsLabel;
-        TTF_CloseFont(font);
         SDL_FreeSurface( background );
     }
 };

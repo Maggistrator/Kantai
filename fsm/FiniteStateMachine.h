@@ -27,7 +27,6 @@ class GameState {
 };
 
 class StateBasedGame {
-    // костыль вместо страшных плюсовых ассоциативных массивов
 struct GameStateIndexer {
         int id;
         GameState* state;

@@ -3,9 +3,6 @@
  *  игроки, противники, снаряды и так далее - всё, что может
  *  участвовать в игровом процессе исключаяя разве что
  *  декорации.
- *
- *  Created on: 26 авг. 2020 г.
- *      Author: sova
  */
 
 #ifndef ENTITY_H_
@@ -15,7 +12,7 @@
 #include "subsystem.h"
 #include "aspect.h"
 
-class Engine; //почему это выглядит как костыль?!
+class Engine;
 
 class Entity {
 
@@ -28,7 +25,7 @@ public:
 	{
 		for(Subsystem* s: subsystems)
 		{
-			s->update(g, state, e, this, delta); //StateBasedGame* g, GameState* state, Engine* e, Entity* owner, int delta
+			s->update(g, state, e, this, delta);
 		}
 	}
 
@@ -45,20 +42,16 @@ public:
 		for(Subsystem* s: subsystems)
 		{
 			if(a == s->getAspect()) return true;
-			//cout<<"searching for aspect "<<a<<", found aspect "<<s->getAspect()<<" in subsystem " << s <<endl;
 		}
 		return false;
 	}
 
 	void addSubsystem(StateBasedGame* g, GameState* state, Engine* e, Subsystem* s)
 	{
-	    s->init(g, state, e, this);//StateBasedGame* g, GameState* state, Engine* e, Entity* owner
+	    s->init(g, state, e, this);
 		subsystems.push_back(s);
 	}
 
-	//TODO: придумать оптимизацию, чтобы последовательный вызов
-	//hasSubsystem() и getSubsystem() не итерировались по списку
-	//подсистем дважды. Избавиться от hasSubsystem()?
 	Subsystem* getSubsystem(Aspect a)
 	{
 		for(Subsystem* s: subsystems)

@@ -71,7 +71,7 @@ class DrawableSubsystem : public Subsystem
 };
 
 
-///необычная подсистема, в отличие от остальных - она неуниверсальна, и служит только объекту игрока
+///РЅРµРѕР±С‹С‡РЅР°СЏ РїРѕРґСЃРёСЃС‚РµРјР°, РІ РѕС‚Р»РёС‡РёРµ РѕС‚ РѕСЃС‚Р°Р»СЊРЅС‹С… - РѕРЅР° РЅРµСѓРЅРёРІРµСЂСЃР°Р»СЊРЅР°, Рё СЃР»СѓР¶РёС‚ С‚РѕР»СЊРєРѕ РѕР±СЉРµРєС‚Сѓ РёРіСЂРѕРєР°
 class ControllableSubsystem : public Subsystem
 {
     //Timer------------------------------------
@@ -81,7 +81,7 @@ class ControllableSubsystem : public Subsystem
     SDL_Surface* textSurface;
     char* torpedosLabel;
     TTF_Font *font = NULL;
-    SDL_Color textColor = { 0, 0, 0 };
+    SDL_Color textColor = { 255, 255, 255 };
     //-----------------------------------------
 
     public:
@@ -105,7 +105,7 @@ class ControllableSubsystem : public Subsystem
 
 	void render(SDL_Surface* s){
 	    sprintf(torpedosLabel, "%s%d", "Torpedos: ", torpedosSpawned);
-        textSurface = TTF_RenderText_Solid( font, torpedosLabel, textColor );
+        textSurface = TTF_RenderUTF8_Blended( font, torpedosLabel, textColor );
         SDL_BlitSurface( textSurface, nullptr, s, nullptr );
 	}
 
@@ -222,10 +222,10 @@ class CollidableSubsystem : public Subsystem
     private:
     bool checkCollision( SDL_Rect a, SDL_Rect b )
     {
-        bool c1 = a.x < (b.x + b.w); // самая левая точка одного прямоугольника не может быть правее самой правой точки другого
-        bool c2 = (a.x + a.w) > b.x; // верно и обратное
-        bool c3 = a.y < (b.y + b.h); // верхняя точка одного прямоугольника не может быть ниже нижней точки другого
-        bool c4 = (a.y + a.h) > b.y; // и, соответственно, в обратном порядке это тоже так
+        bool c1 = a.x < (b.x + b.w); // СЃР°РјР°СЏ Р»РµРІР°СЏ С‚РѕС‡РєР° РѕРґРЅРѕРіРѕ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСЂР°РІРµРµ СЃР°РјРѕР№ РїСЂР°РІРѕР№ С‚РѕС‡РєРё РґСЂСѓРіРѕРіРѕ
+        bool c2 = (a.x + a.w) > b.x; // РІРµСЂРЅРѕ Рё РѕР±СЂР°С‚РЅРѕРµ
+        bool c3 = a.y < (b.y + b.h); // РІРµСЂС…РЅСЏСЏ С‚РѕС‡РєР° РѕРґРЅРѕРіРѕ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅРёР¶Рµ РЅРёР¶РЅРµР№ С‚РѕС‡РєРё РґСЂСѓРіРѕРіРѕ
+        bool c4 = (a.y + a.h) > b.y; // Рё, СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ, РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ СЌС‚Рѕ С‚РѕР¶Рµ С‚Р°Рє
         return ( c1 && c2 && c3 && c4 );
     }
 };
