@@ -26,19 +26,24 @@ public:
 
 	void addRecord( char* name, int m_score )
 	{
-	    highscores[items % (MAX_RECORDS-1)] = new Record(name, m_score);
+	    char * current_name = new char[32];
+        strcpy(current_name, name);
+        strcat(current_name, "\0");
+	    highscores[items % (MAX_RECORDS-1)] = new Record(current_name, m_score);
         addHighRecord(name, m_score);
         items++;
 	}
 
 	void addHighRecord( char* name, int m_score)
 	{
-        if(overall_items < MAX_RECORDS){
-            overall_highscores[overall_items] = new Record(name, m_score);
+	    char * current_name = new char[32];
+        strcpy(current_name, name);
+        strcat(current_name, "\0");
+        if(overall_items < MAX_RECORDS-1){
+            overall_highscores[overall_items] = new Record(current_name, m_score);
             overall_items++;
             sort(overall_highscores, overall_items);
             writeOverallHighscores();
-        printOverallHighscores();
         } else {
             int i = MAX_RECORDS-1; // iterator for existing scores
             int j = -1;   // new score possible position
@@ -117,7 +122,7 @@ public:
                     ofs1.write((char *)&overall_items, sizeof(int));
                     for(Record* rec: overall_highscores){
                         if(rec) {
-                             int player_name_lenght = strlen(rec->name);
+                            int player_name_lenght = strlen(rec->name);
                             ofs1.write((char *)&player_name_lenght, sizeof(int));
                             ofs1.write(rec->name, sizeof(char)*(player_name_lenght));
                             ofs1.write((char *)&(rec->score), sizeof(int));
@@ -154,8 +159,11 @@ public:
 
         ~Session()
         {
-            for(Record* rec: highscores) delete rec;
-            for(Record* rec: overall_highscores) delete rec;
+            for(Record* rec: highscores) {
+                delete rec->name;
+                delete rec;
+            }
+            clearOverallHighscores();
         }
 } current_session;
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1605833522 source:c:\sdl\labs\kantai\main.cpp
+1605844993 source:c:\sdl\labs\kantai\main.cpp
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_ttf.h>
@@ -242,7 +242,7 @@
 	<SDL.h>
 	<iostream>
 
-1605838664 source:c:\sdl\labs\kantai\fsm\game.cpp
+1605844137 source:c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -259,6 +259,7 @@
 	"../sessions.h"
 	"finish_game.cpp"
 	"states.h"
+	"../ui/label.h"
 
 1325810433 c:\sdl\sdl-1.2.15\include\sdl\\sdl_image.h
 	"SDL.h"
@@ -278,12 +279,12 @@
 	<stdio.h>
 	<string>
 
-1605833598 c:\sdl\labs\kantai\fsm\finitestatemachine.h
+1605844302 c:\sdl\labs\kantai\fsm\finitestatemachine.h
 	<SDL.h>
 	<list>
 	<iostream>
 
-1605838664 c:\sdl\labs\kantai\fsm\game.cpp
+1605844137 c:\sdl\labs\kantai\fsm\game.cpp
 	<string>
 	<iostream>
 	<SDL.h>
@@ -300,6 +301,7 @@
 	"../sessions.h"
 	"finish_game.cpp"
 	"states.h"
+	"../ui/label.h"
 
 1600382925 c:\sdl\labs\kantai\engine\png_load.h
 	<string>
@@ -360,7 +362,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1605461874 source:c:\sdl\labs\kantai\fsm\finish_game.cpp
+1605844081 source:c:\sdl\labs\kantai\fsm\finish_game.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -368,7 +370,7 @@
 
 1604435464 c:\sdl\labs\kantai\fsm\states.h
 
-1605461874 c:\sdl\labs\kantai\fsm\finish_game.cpp
+1605844081 c:\sdl\labs\kantai\fsm\finish_game.cpp
 	"states.h"
 	"FiniteStateMachine.h"
 	<SDL.h>
@@ -491,6 +493,6 @@
 	"../ui/button.h"
 	"../sessions.h"
 
-1605838686 c:\sdl\labs\kantai\sessions.h
+1605845291 c:\sdl\labs\kantai\sessions.h
 	<fstream>
 

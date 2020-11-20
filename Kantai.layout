@@ -2,114 +2,114 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="fsm\game.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ec\components.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4874" topLine="111" />
+			<Cursor1 position="2523" topLine="68" />
 		</Cursor>
 	</File>
-	<File name="ec\spawner.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ui\label.h" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6552" topLine="134" />
+			<Cursor1 position="1040" topLine="15" />
 		</Cursor>
 	</File>
-	<File name="ec\components.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fsm\login.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="531" topLine="72" />
+			<Cursor1 position="1742" topLine="50" />
 		</Cursor>
 	</File>
-	<File name="fsm\main_menu.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="engine\entity.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1614" topLine="21" />
+			<Cursor1 position="1168" topLine="40" />
 		</Cursor>
 	</File>
-	<File name="engine\subsystem.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sessions.h" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="810" topLine="0" />
+			<Cursor1 position="4385" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="sessions.h" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fsm\game.cpp" open="1" top="1" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="128" topLine="0" />
+			<Cursor1 position="4545" topLine="49" />
 		</Cursor>
 	</File>
-	<File name="ui\label.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ec\spawner.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="255" topLine="0" />
+			<Cursor1 position="5910" topLine="138" />
 		</Cursor>
 	</File>
-	<File name="fsm\greetings.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ui\text_field.h" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="504" topLine="4" />
+			<Cursor1 position="692" topLine="18" />
 		</Cursor>
 	</File>
-	<File name="engine\aspect.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fsm\main_menu.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="944" topLine="0" />
+			<Cursor1 position="2028" topLine="15" />
 		</Cursor>
 	</File>
-	<File name="fsm\rules.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="engine\subsystem.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1325" topLine="21" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="fsm\FiniteStateMachine.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ui\abstract_element.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2233" topLine="41" />
+			<Cursor1 position="921" topLine="22" />
 		</Cursor>
 	</File>
-	<File name="ui\abstract_element.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fsm\greetings.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="996" topLine="22" />
+			<Cursor1 position="1672" topLine="39" />
 		</Cursor>
 	</File>
-	<File name="ui\text_field.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="engine\aspect.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1854" topLine="25" />
+			<Cursor1 position="172" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="fsm\highscores.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="utils.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4106" topLine="99" />
+			<Cursor1 position="1852" topLine="63" />
 		</Cursor>
 	</File>
-	<File name="engine\engine.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fsm\rules.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1303" topLine="27" />
+			<Cursor1 position="530" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="fsm\states.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fsm\FiniteStateMachine.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="71" topLine="0" />
+			<Cursor1 position="734" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ui\button.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="168" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="fsm\highscores.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7353" topLine="239" />
+		</Cursor>
+	</File>
+	<File name="engine\engine.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1803" topLine="41" />
+		</Cursor>
+	</File>
+	<File name="fsm\states.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="173" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2401" topLine="94" />
 		</Cursor>
 	</File>
 	<File name="fsm\finish_game.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1272" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="ui\button.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1433" topLine="33" />
-		</Cursor>
-	</File>
-	<File name="utils.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1031" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="fsm\login.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1918" topLine="19" />
-		</Cursor>
-	</File>
-	<File name="engine\entity.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1748" topLine="44" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3300" topLine="81" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

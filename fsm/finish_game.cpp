@@ -39,6 +39,9 @@ class Statistics : public GameState
         sprintf(killsText, "%s%d", "Kills: ", m_kills);
         sprintf(pointsText, "%s%d", "Points: ", m_points);
         noticePlaceholder.y = display->h - 50;
+        pointsSurface = TTF_RenderText_Solid( font, pointsText, textColor );
+        killsSurface = TTF_RenderText_Solid( font, killsText, textColor );
+        noticeSurface = TTF_RenderText_Solid( font, noticeText, textColor );
     }
 
     int cooldown = 15;
@@ -52,9 +55,13 @@ class Statistics : public GameState
                 {
                     g->switchState( game );
                     cooldown = 15;
+                    g->unregisterState( results );
                 }
                 else if((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+                {
                     g->switchState(states::main_menu);
+                    g->unregisterState( results );
+                }
             }
         }
         }else cooldown--;
@@ -62,11 +69,8 @@ class Statistics : public GameState
 
     void render( SDL_Surface* display )
     {
-        pointsSurface = TTF_RenderText_Solid( font, pointsText, textColor );
         SDL_BlitSurface( pointsSurface, nullptr, display, &pointsPlaceholder );
-        killsSurface = TTF_RenderText_Solid( font, killsText, textColor );
         SDL_BlitSurface( killsSurface, nullptr, display, &killsPlaceholder );
-        noticeSurface = TTF_RenderText_Solid( font, noticeText, textColor );
         SDL_BlitSurface( noticeSurface, nullptr, display, &noticePlaceholder );
     }
 
@@ -87,8 +91,6 @@ class Statistics : public GameState
         TTF_CloseFont(font);
         SDL_FreeSurface(killsSurface);
         SDL_FreeSurface(pointsSurface);
-
-        g->unregisterState( results );
         delete this;
     }
 };

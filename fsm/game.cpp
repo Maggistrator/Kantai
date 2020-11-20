@@ -29,10 +29,7 @@ class Game : public GameState
     Engine entityManager;
     friend class Statistics;
 
-    SDL_Surface* textSurface;
     Label* pointsLabel;
-    SDL_Color textColor = { 255, 255, 255 };
-    SDL_Rect textPlaceholder = { 0, 50, 200, 50 };
 
     struct levelData {
         int level = 1;
@@ -70,7 +67,6 @@ class Game : public GameState
 
         ControllableSubsystem* ss = (ControllableSubsystem*)player->getSubsystem(controllable);
         ld.torpedosSpawned = ss->torpedosSpawned;
-        if(ld.torpedosSpawned > 10) nextLevel( g );
         if(ld.torpedosSpawned >= 10)
             if(next_level_cooldown <= 0) nextLevel( g );
             else next_level_cooldown--;
@@ -118,24 +114,17 @@ class Game : public GameState
 
         player = spawnPlayer(g, this, &entityManager);
         entityManager.addEntity(player);
-
-        render(display);
     }
 
     void nextLevel( StateBasedGame* g ){
         if(ld.killed == 10) ld.level++;
+        else ld.level = 1;
 
         Statistics* s = new Statistics(ld.killed, ld.points);
         g->registerState( results, getScreen(), s );
         g->switchState ( results );
 
         current_session.addRecord(current_session.current_player, ld.points);
-
-        #ifdef DEBUG
-        for(Record* rec: current_session.overall_highscores)
-            if(rec != nullptr) cout << "writing player :" << rec->name << " with score: " << rec->score << endl;
-        cout << "write is " << (succsess ? "succsessfull" : "unsuccsesfull") << endl;
-        #endif // DEBUGS
 
         clearLevel( g );
     }

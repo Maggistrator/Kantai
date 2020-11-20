@@ -101,6 +101,7 @@ int main(int argc, char* argv[])
     game.registerState( states::login, screen, loginState );
     game.switchState( states::greetings );
 
+    current_session.loadOverallHighscores();
     while ( running ){
         fps_counter.start();
         dc.tick();
